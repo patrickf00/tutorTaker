@@ -18,6 +18,13 @@ struct Person
     int year;
     bool isTutor; // 1 if they are a tutor/ 0 if they are not a tutor
     vector<Person*> Edges; //stores edges to adjacent vertices
+    //other info i think we need
+    string firstName;
+    string lastName;
+    string school;
+    string email;
+    string password;
+
 
 };
 class Graph
