@@ -16,10 +16,11 @@ Graph::~Graph(){
 
 
 
-void Graph::addVertex(string name, bool isTutor, string subject[10], int year, vector<double> rating){//add a person to the string list and to the graph using
+void Graph::addVertex(string name, bool isTutor, string school, string subject[10], int year, vector<double> rating){//add a person to the string list and to the graph using
   Person v1;
   v1.id = currentAmtOfNames;
   v1.isTutor=isTutor;
+  v1.school = school;
   v1.year=year;
   for (int i=0; i<subject->length(); i++) {
       v1.subjects[i] = subject[i];
@@ -31,9 +32,16 @@ void Graph::addVertex(string name, bool isTutor, string subject[10], int year, v
 
   currentAmtOfNames++;
   vertices.push_back(v1);
+<<<<<<< HEAD
+  // cout << "Average rating: " << getRatingAverage(v1.ratings) << endl;
+  // cout << "Current school year: " << getYear(v1.year) << endl;
+
+=======
   cout << "Average rating: " << getRatingAverage(v1.ratings) << endl;
   cout << "Current school year: " << getYear(v1.year) << endl;
-
+  cout << "School: " << v1.school << endl;
+  displayMatches(v1);
+>>>>>>> ed36a2634a1d2a071a85e0686d75b96006da3b12
 }
 
 Person* Graph::findVertex(int id){
@@ -105,7 +113,7 @@ void Graph::displayNames(){
   }
 }
 double Graph::getRatingAverage(vector<double> ratings) {
-    double rate;
+    double rate = 0;
     for (int i=0; i<ratings.size(); i++) {
         rate+=ratings[i];
     }
@@ -125,3 +133,43 @@ string Graph::getYear(int year) {
         return "Senior";
     }
 }
+<<<<<<< HEAD
+=======
+bool Graph::isMatch(Person v1, Person v2) {
+    if (v2.school != v1.school) {
+        return false;
+    }
+    else if (v2.isTutor == 0) {
+        return false;
+    }
+    else if (v2.year < v1.year) {
+        return false;
+    }
+    else {
+        for (int i=0; i<v1.subjects->length(); i++) {
+            for (int j=0; j<v2.subjects->length(); j++) {
+                if (v1.subjects[i] == v2.subjects[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+void Graph::displayMatches(Person v1) {
+    vector<Person> matches;
+    for (int i=0; i<vertices.size(); i++) {
+        if (vertices[i].id !=v1.id) {
+            bool match = isMatch(v1, vertices[i]);
+            if (match == true) {
+                addEdge(IdToName(vertices[i].id), IdToName(v1.id));
+                matches.push_back(vertices[i]);
+            }
+        }
+    }
+    cout << "Tutor matches for " << IdToName(v1.id) << ": " << endl;
+    for (int k=0; k<matches.size(); k++) {
+        cout << k+1 << ". " << IdToName(matches[k].id) << endl;
+    }
+}
+>>>>>>> ed36a2634a1d2a071a85e0686d75b96006da3b12
