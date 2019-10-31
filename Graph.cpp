@@ -32,15 +32,10 @@ void Graph::addVertex(string name, bool isTutor, string school, string subject[1
 
   currentAmtOfNames++;
   vertices.push_back(v1);
-<<<<<<< HEAD
   // cout << "Average rating: " << getRatingAverage(v1.ratings) << endl;
   // cout << "Current school year: " << getYear(v1.year) << endl;
 
 =======
-  cout << "Average rating: " << getRatingAverage(v1.ratings) << endl;
-  cout << "Current school year: " << getYear(v1.year) << endl;
-  cout << "School: " << v1.school << endl;
-  displayMatches(v1);
 >>>>>>> ed36a2634a1d2a071a85e0686d75b96006da3b12
 }
 
@@ -134,7 +129,10 @@ string Graph::getYear(int year) {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> ed36a2634a1d2a071a85e0686d75b96006da3b12
 bool Graph::isMatch(Person v1, Person v2) {
     if (v2.school != v1.school) {
         return false;
@@ -171,5 +169,9 @@ void Graph::displayMatches(Person v1) {
     for (int k=0; k<matches.size(); k++) {
         cout << k+1 << ". " << IdToName(matches[k].id) << endl;
     }
+<<<<<<< HEAD
+}
+>>>>>>> ed36a2634a1d2a071a85e0686d75b96006da3b12
+=======
 }
 >>>>>>> ed36a2634a1d2a071a85e0686d75b96006da3b12
