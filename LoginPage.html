@@ -1,5 +1,5 @@
-   
-         <html lang="en">
+<!DOCTYPE html>
+    <html lang="en">
       <head>
         <title>Login Page</title>
         <meta charset="utf-8">
@@ -41,26 +41,24 @@
           <div class="card mx-auto" style="width: 30rem;">
             <div class="card-body">
               <form onsubmit="return(formDone());" name="regForm" id="regForm" >
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="validationFName" class="h6">Student Email</label>
-                      <input type="email" class="form-control" id="email" placeholder="example@school.edu">
-                      <span class="error"><small id="emailError" style="color:red"></small></span>
-                    </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="validationFName" class="h6">Student Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="example@school.edu">
+                    <span class="error"><small id="emailError" style="color:red"></small></span>
                   </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="validationLName" class="h6">Password</label>
-                      <input type ="password" class="form-control" id="lName" placeholder="password">
-                      <span class="error"><small id="passError" style="color:red"></small></span>
-                    </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="validationLName" class="h6">Password</label>
+                    <input type ="password" class="form-control" id="lName" placeholder="Password">
+                    <span class="error"><small id="passError" style="color:red"></small></span>
                   </div>
                 </div>
                 <div class="form-group">
-                  
                   <span class="error"><small id="schoolError" style="color:red"></small></span>
+                  <span class="error"><small id="typeStatus" style="color:red"></small></span>
                 </div>
-                <span class="error"><small id="typeStatus" style="color:red"></small></span>
                 <div class="card card-body" style="display:none;" id="tutorCard">
                   <div class="form-group" id="tutorForm">
                     <span class="error"><small id="yearError" style="color:red"></small></span>
@@ -69,22 +67,27 @@
                     <span class="error"><small id="subjectError" style="color:red"></small></span>
                   </div>
                 </div>
-                <div>
-                <center><div class="checkbox mb-3">
-                  <label>
-                    <input type="checkbox" value="remember-me"> Remember me |
-                  </label>
-                  <a href="">Forgot Password?</a>
-                </div>
-
-                </div>
+                <center>
+                  <div class="checkbox mb-3">
+                    <label>
+                      <input type="checkbox" value="remember-me"> Remember me |
+                    </label>
+                    <a href="">Forgot Password?</a>
+                  </div>
+                </center>
                 <div class="mt-2">
                  <center>
                   <button class="btn btn-lg btn-dark" type="submit">Sign in</button>
                   <a class="btn btn-lg btn-dark" href="regPage.html">Register</a>
                  </center>
                 </div>
+                <div>
+                  <p></p>
+                </div>
               </form>
             </div>
           </div>
         </div>
+      </body>
+    </html>
+          
