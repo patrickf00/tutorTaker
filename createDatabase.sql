@@ -57,11 +57,11 @@ CREATE TABLE Feedback (
 -- TODO: add functionality for grouping messages by conversation
 --  (entails matching messages by sender and recipient and ordering by date)
 CREATE VIEW UserMessages AS
-  SELECT * FROM Users INNER JOIN Messages ON Users.id=Messages.recipID;
+  SELECT Users.id, Messages.* FROM Users RIGHT JOIN Messages ON Users.id=Messages.recipID;
 
 -- User feedback view (groups feedback by userID)
 CREATE VIEW UserFeedback AS
-  SELECT * FROM Users INNER JOIN Feedback ON Users.id=Feedback.userID;
+  SELECT Users.id, Feedback.* FROM Users RIGHT JOIN Feedback ON Users.id=Feedback.userID;
 
 ----
 -- Data retrieval - for NodeJS integration
