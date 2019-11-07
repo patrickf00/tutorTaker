@@ -4,7 +4,8 @@
 
 CREATE DATABASE TutorTaker;
 
-\c TutorTaker; -- Necessary?
+-- Switch database with:
+-- \c TutorTaker
 
 -- Users table - stores user data
 CREATE TABLE Users (
