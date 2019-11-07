@@ -1,5 +1,5 @@
 /***********************
- 
+
   Load Components!
 
   Express      - A Node.js Framework
@@ -23,11 +23,12 @@ app.use(express.static(__dirname + '/')); // This line is necessary for us to us
 
 
 const dbConfig = {
-	host: 'localhost', // temp until we figure out our host
+	host: 'postgres://cglbedgqxdekly:4efdc9c52634b86ee17a59e6d69be8c546103e3bc43e2f5bcad3ea8b5adc533e@ec2-23-21-87-183.compute-1.amazonaws.com:5432/d2n6cav4vkcdjq', // temp until we figure out our host
 	port: 5432,
-	database: 'tutortaker',
-	user: 'postgres',
-	password: 'Vaughn35!*'
+	database: 'd2n6cav4vkcdjq',
+	user: 'cglbedgqxdekly',
+	password: '4efdc9c52634b86ee17a59e6d69be8c546103e3bc43e2f5bcad3ea8b5adc533e',
+  sslmode: 'require'
 };
 
 //let db = pgp(dbConfig);
