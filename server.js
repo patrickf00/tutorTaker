@@ -1,5 +1,5 @@
 /***********************
-
+ 
   Load Components!
 
   Express      - A Node.js Framework
@@ -23,12 +23,11 @@ app.use(express.static(__dirname + '/')); // This line is necessary for us to us
 
 
 const dbConfig = {
-	host: 'postgres://cglbedgqxdekly:4efdc9c52634b86ee17a59e6d69be8c546103e3bc43e2f5bcad3ea8b5adc533e@ec2-23-21-87-183.compute-1.amazonaws.com:5432/d2n6cav4vkcdjq', // temp until we figure out our host
+	host: 'localhost', // temp until we figure out our host
 	port: 5432,
-	database: 'd2n6cav4vkcdjq',
-	user: 'cglbedgqxdekly',
-	password: '4efdc9c52634b86ee17a59e6d69be8c546103e3bc43e2f5bcad3ea8b5adc533e',
-  sslmode: 'require'
+	database: 'tutortaker',
+	user: 'postgres',
+	password: 'Vaughn35!*'
 };
 
 //let db = pgp(dbConfig);
@@ -39,24 +38,54 @@ app.use(express.static(__dirname + '/')); // This line is necessary for us to us
 
 /* will render the search page*/
 app.get('/tutor-finder', function(req, res){
-  var query1 = 'SELECT firstName, lastName, rating FROM users;';
-  db.task('get-everything', task => {
+  var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY lastname ASC;';
+  db.query(query1, task => {
       return task.batch([
-          task.any(query1),
+          task.any(query1)
       ]);
   })
   .then(data => {
+    console.log(data)
     res.render('pages/searchPage',{
-        result_1: data[0]
-    })
+        tutors: data
+      })
+  })
   .catch(err => {
       // display error message in case an error
-          console.log('error', err);
-          res.render('pages/searchPage',{
-              result_1: ''
-          })
+      console.log('error', err);
+      res.render('pages/searchPage',{
+           tutors: ''
       })
-  });
+  })
+});
+app.get('/tutor-finder/filter', function(req, res){
+  var filterChoice = req.query.filterChoice;
+  if(filterChoice == 1){
+    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY lastname ASC;';
+  } else if(filterChoice == 2) {
+    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY rating DESC;'
+  } else {
+    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY subjects ASC;'
+  }
+  
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/searchPage',{
+        tutors: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/searchPage',{
+           tutors: ''
+      })
+  })
 });
 
 app.listen(3000);
