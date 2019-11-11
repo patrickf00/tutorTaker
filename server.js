@@ -1,5 +1,5 @@
 /***********************
- 
+
   Load Components!
 
   Express      - A Node.js Framework
@@ -27,7 +27,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'tutortaker',
 	user: 'postgres',
-	password: 'Vaughn35!*'
+	password: 'password'
 };
 
 //let db = pgp(dbConfig);
@@ -67,7 +67,7 @@ app.get('/tutor-finder/filter', function(req, res){
   } else {
     var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY subjects ASC;'
   }
-  
+
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -87,6 +87,56 @@ app.get('/tutor-finder/filter', function(req, res){
       })
   })
 });
+
+
+
+
+//will render base login page
+app.get('/Login', function(req, res){
+  var query1 = 'SELECT username,pwdHash FROM Users;';
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/LoginPage',{
+        users: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/LoginPage',{
+           users: ''
+      })
+  })
+});
+//will get request for verification process the login page
+/*
+app.get('/Login/verify', function(req, res){
+  var username1 = req.query.verifyEmail;
+  var query1 = 'SELECT pwdHash FROM Users WHERE username=' + username1 + ';';
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/LoginPage',{
+        users: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/LoginPage',{
+           users: ''
+      })
+  })
+});*/
 
 app.listen(3000);
 console.log('3000 is the magic port');
