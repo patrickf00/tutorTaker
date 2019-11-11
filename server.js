@@ -114,10 +114,11 @@ app.get('/Login', function(req, res){
   })
 });
 //will get request for verification process the login page
-/*
+
 app.get('/Login/verify', function(req, res){
   var username1 = req.query.verifyEmail;
-  var query1 = 'SELECT pwdHash FROM Users WHERE username=' + username1 + ';';
+  console.log(username1);
+  var query1 = 'SELECT pwdHash FROM users WHERE "username" = ' + username1 + ';';
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -136,7 +137,7 @@ app.get('/Login/verify', function(req, res){
            users: ''
       })
   })
-});*/
+});
 
 app.listen(3000);
 console.log('3000 is the magic port');
