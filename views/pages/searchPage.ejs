@@ -11,23 +11,30 @@
     <div class="container-fluid">
       <br>
       <h1 style="text-align: center;color:#C7BA7C;font-family:georgia">Find a Tutor</h1>
-      <div class="form-group" action="/searchPage" method="GET">
-        <label for="filterType" style="color:#C7BA7C;font-family:georgia" class="h6">Filter</label>
-        <select class="form-control" id="filterType">
-          <option value="">Select a Filter</option>
-          <option value="1" onchange="this.form.submit()">Alphabetical</option>
-          <option value="2" onchange="this.form.submit()">Rating</option>
-          <option value="3" onchange="this.form.submit()">Major</option>
-        </select>
+      <div class="form-group">
+        <form action="/tutor-finder/filter" method="GET">
+          <label for="filterType" style="color:#C7BA7C;font-family:georgia" class="h6">Filter</label>
+          <select name="filterChoice" class="custom-select" id="filterType" onchange="this.form.submit()">
+            <option>Select a Filter</option>
+            <option value="1">Alphabetical</option>
+            <option value="2">Rating</option>
+            <option value="3">Major</option>
+          </select>
+
+        </form>
         <table style="width: 100%;color:#C7BA7C;font-family:georgia"> 
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Name</th>
             <th>Rating</th>
+            <th>Subject</th>
           </tr>
+        <% for (var i = 0;i < tutors.length; i++) { %>
           <tr>
-            <td><%= result_1.firstName%></td>
+            <td value=<%= tutors[i].id %>><a class ="link"href="https://www.w3schools.com/html/"><%= tutors[i].firstname + " " + tutors[i].lastname  %></a></td>
+            <td><%= tutors[i].rating %></td>
+            <td ><%= tutors[i].subjects %></td>
           </tr>
+        <% } %>
         </table>    
       </div>
     </div>
