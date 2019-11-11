@@ -14,6 +14,7 @@ CREATE TABLE Users (
   firstName varchar(255),
   pronouns varchar(255),
   username varchar(255),
+  email varchar(255),
   pwdHash varchar(255),
   tutor boolean,
   student boolean,
