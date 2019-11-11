@@ -8,6 +8,8 @@
 
 ***********************/
 
+const PORT = process.env.PORT || 3000; // Use either the port assigned by Heroku, or 3000
+
 const express = require('express'); // Add the express framework has been added
 var app = express();
 
@@ -139,5 +141,5 @@ app.get('/Login/verify', function(req, res){
   })
 });
 
-app.listen(3000);
-console.log('3000 is the magic port');
+app.listen(PORT);
+console.log(PORT + ' is the magic port');
