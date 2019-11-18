@@ -9,6 +9,13 @@
 ***********************/
 
 const PORT = process.env.PORT || 3000; // Use either the port assigned by Heroku, or 3000
+const DB = process.env.DATABASE_URL || {
+	host: 'localhost',
+	port: 5432,
+	database: 'tutortaker',
+	user: 'postgres',
+	password: 'password'
+}; // Use either database URL assigned by Heroku, or defaults
 
 const express = require('express'); // Add the express framework has been added
 var app = express();
@@ -22,21 +29,36 @@ app.set('view engine', 'ejs');
 //Create Database Connection
 const pgp = require('pg-promise')();
 app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
-
-
-const dbConfig = {
-	host: 'localhost', // temp until we figure out our host
-	port: 5432,
-	database: 'tutortaker',
-	user: 'postgres',
-	password: 'password'
-};
+const dbConfig = DB;
 
 //let db = pgp(dbConfig);
 let db = pgp(dbConfig);
 // set the view engine to ejs
 
 app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
+
+// will render index page (renders as login)
+app.get('/', function(req, res){
+  var query1 = 'SELECT username,pwdHash FROM Users;';
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/LoginPage',{
+        users: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/LoginPage',{
+           users: ''
+      })
+  })
+});
 
 /* will render the search page*/
 app.get('/tutor-finder', function(req, res){
@@ -90,11 +112,8 @@ app.get('/tutor-finder/filter', function(req, res){
   })
 });
 
-
-
-
 //will render base login page
-app.get('/Login', function(req, res){
+app.get('/login', function(req, res){
   var query1 = 'SELECT username,pwdHash FROM Users;';
   db.query(query1, task => {
       return task.batch([
@@ -117,7 +136,7 @@ app.get('/Login', function(req, res){
 });
 //will get request for verification process the login page
 
-app.get('/Login/verify', function(req, res){
+app.post('/login/verify', function(req, res){
   var username1 = req.query.verifyEmail;
   console.log(username1);
   var query1 = 'SELECT pwdHash FROM users WHERE "username" = ' + username1 + ';';
