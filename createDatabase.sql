@@ -74,7 +74,7 @@ CREATE VIEW UserFeedback AS
 
 -- Add user
 INSERT INTO Users (
-  lastName, firstName, pronouns, username, pwdHash, tutor,
+  lastName, firstName, pronouns, username, email, pwdHash, tutor,
   student, rating, location, schoolLevel, subjects, price
 )
 VALUES (
@@ -82,6 +82,7 @@ VALUES (
   NJIfirstName,
   NJIpronouns,
   NJIusername,
+  NJIemail,
   NJIpwdHash,
   NJItutor,
   NJIstudent,
