@@ -39,25 +39,7 @@ app.use(express.static(__dirname + '/')); // This line is necessary for us to us
 
 // will render index page (renders as login)
 app.get('/', function(req, res){
-  var query1 = 'SELECT username,pwdHash FROM Users;';
-  db.query(query1, task => {
-      return task.batch([
-          task.any(query1)
-      ]);
-  })
-  .then(data => {
-    console.log(data)
-    res.render('pages/LoginPage',{
-        users: data
-      })
-  })
-  .catch(err => {
-      // display error message in case an error
-      console.log('error', err);
-      res.render('pages/LoginPage',{
-           users: ''
-      })
-  })
+	res.render('pages/LoginPage',{})
 });
 
 /* will render the search page*/
@@ -134,8 +116,8 @@ app.get('/login', function(req, res){
       })
   })
 });
-//will get request for verification process the login page
 
+//will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.query.verifyEmail;
   console.log(username1);
