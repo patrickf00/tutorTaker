@@ -119,9 +119,8 @@ app.get('/login', function(req, res){
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
-  var username1 = req.query.verifyEmail;
-  console.log(username1);
-  var query1 = 'SELECT pwdHash FROM users WHERE "username" = ' + username1 + ';';
+  var username1 = req.body.verifyEmail;
+  var query1 = "SELECT pwdHash FROM users WHERE username = '" + username1 + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
