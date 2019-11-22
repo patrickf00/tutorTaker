@@ -120,7 +120,8 @@ app.get('/login', function(req, res){
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
-  var query1 = "SELECT pwdHash FROM users WHERE username = '" + username1 + "';";
+  console.log(username1);
+  var query1 = "SELECT pwdhash FROM users WHERE email = '" + username1 + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -139,6 +140,85 @@ app.post('/login/verify', function(req, res){
            users: ''
       })
   })
+});
+
+
+
+//will render base registration page
+app.get('/regPage', function(req, res){
+  var query1 = 'SELECT id FROM Users;';
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/regPage',{
+        users: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/RegPage',{
+           users: ''
+      })
+  })
+});
+
+
+//will enter someones data to the db
+app.post('/regPage/valid', function(req, res){
+  var fname = req.body.fName;
+  var lname = req.body.lName;
+  var school = req.body.school;
+  var studentStatus1 = req.body.studentStatus;
+  if(studentStatus1 == "None"){
+    var studentStatus = true;
+  }
+  else{
+    var studentStatus = false;
+  }
+  var tutorStatus1 = req.body.tutorStatus;
+  if(tutorStatus1 == "None"){
+    var tutorStatus = true;
+  }
+  else{
+    var tutorStatus = false;
+  }
+  var yearStatus = req.body.yearStatus;
+  if(yearStatus == ""){
+    yearStatus ="NULL";
+  }
+  var subjectStatus = req.body.subjectStatus;
+  if(subjectStatus == ""){
+    subjectStatus ="NULL";
+  }
+  var email = req.body.email;
+  var password = req.body.password;
+  var pronouns = "they,them"; //temp till added to reg page
+  var username ="user" //temp till added to reg page
+  var rating = 10;
+  var price = 0.00; //temp till added to reg page
+  console.log(fname);
+  console.log(lname);
+  console.log(school);
+  console.log(studentStatus);
+  console.log(tutorStatus);
+  console.log(yearStatus);
+  console.log(subjectStatus);
+  console.log(email);
+  console.log(password);
+  res.render('pages/RegPage',{})
+  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "');";
+  db.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 row inserted");
+  });
+
+
+
 });
 
 app.listen(PORT);
