@@ -142,6 +142,28 @@ app.post('/login/verify', function(req, res){
   })
 });
 
+app.get('/profile', function(req, res){
+  var query1 = 'SELECT * FROM Users;';
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/Profile',{
+        users: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/Profile',{
+           users: ''
+      })
+  })
+});
+
 
 
 //will render base registration page
@@ -216,10 +238,10 @@ app.post('/regPage/valid', function(req, res){
     if (err) throw err;
     console.log("1 row inserted");
   });
-
-
-
 });
+
+
+
 
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
