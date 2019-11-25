@@ -93,10 +93,4 @@ function formDone(){
       document.getElementById("cPassError").innerHTML = "* Passwords Do Not Match";
     }
   }
-  if(ret){
-    document.forms['regForm'].submit();
-  } else{
-    window.history.forward(-1);
-    console.alert("Please fill in the missing portions of the form.")
-  }
-}
+  return ret;
