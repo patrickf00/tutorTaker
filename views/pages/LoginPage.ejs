@@ -54,7 +54,7 @@
           <br>
           <div class="card mx-auto" style="width: 30rem;">
             <div class="card-body">
-              <form method="GET" name="regForm" id="regForm" >
+              <form action="/login/verify" method="POST" name="regForm" id="regForm" >
                 <div class="col">
                   <div class="form-group">
                     <label for="validationFName" class="h6">Student Email</label>
@@ -91,9 +91,9 @@
                 </center>
                 <div class="mt-2">
                  <center>
-                  <input class="btn btn-lg btn-dark" type="submit" value="Sign in" onclick="javascript: form.action='/login/verify';"></input>
+                  <input class="btn btn-lg btn-dark" type="submit" value="Sign in"></input>
                   <script> var pass = document.getElementById('lName').value; </script>
-                  <input class="btn btn-lg btn-dark" type="submit" value="Register" onclick="javascript: form.action='/regPage';"></input>
+                <input class="btn btn-lg btn-dark" type="submit" value="Register" formaction="/regPage" method="GET"></input>
                  </center>
                 </div>
               </form>
