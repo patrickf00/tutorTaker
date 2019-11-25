@@ -168,6 +168,7 @@ app.get('/profile', function(req, res){
 
 //will render base registration page
 app.post('/regPage', function(req, res){
+  var query1 = 'SELECT id FROM Users;';
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -182,7 +183,7 @@ app.post('/regPage', function(req, res){
   .catch(err => {
       // display error message in case an error
       console.log('error', err);
-      res.render('pages/RegPage',{
+      res.render('pages/regPage',{
            users: ''
       })
   })
