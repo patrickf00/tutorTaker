@@ -143,7 +143,7 @@ app.post('/login/verify', function(req, res){
 });
 
 app.get('/profile', function(req, res){
-  var query1 = 'SELECT * FROM Users;';
+  var query1 = 'SELECT reviewText';
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -168,7 +168,6 @@ app.get('/profile', function(req, res){
 
 //will render base registration page
 app.post('/regPage', function(req, res){
-  var query1 = 'SELECT id FROM Users;';
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -232,7 +231,7 @@ app.post('/regPage/valid', function(req, res){
   console.log(subjectStatus);
   console.log(email);
   console.log(password);
-  res.render('pages/RegPage',{})
+  res.render('pages/regPage',{})
   var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "');";
   db.query(sql, function (err, result) {
     if (err) throw err;
