@@ -192,7 +192,6 @@ app.post('/regPage', function(req, res){
 
 //will enter someones data to the db
 app.post('/regPage/valid', function(req, res){
-  var complete = formDone();
   var fname = req.body.fName;
   var lname = req.body.lName;
   var school = req.body.school;
