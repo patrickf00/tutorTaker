@@ -26,6 +26,7 @@ function formDone(){
   var password = document.forms["regForm"]["password"].value;
   var cPassword = document.forms["regForm"]["cPassword"].value;
   var username = document.forms["regForm"]["username"].value;
+  var pronouns = document.forms["regForm"]["pronouns"].value;
   var ret = true;
   document.getElementById("fNameError").innerHTML = "";
   document.getElementById("lNameError").innerHTML = "";
@@ -47,6 +48,10 @@ function formDone(){
   }
   if(schoolSelect.length == 0){
     document.getElementById("schoolError").innerHTML = "* Please Select a School";
+    ret = false
+  }
+   if(pronouns.length == 0){
+    document.getElementById("pronounError").innerHTML = "* Please Select Your Pronouns";
     ret = false
   }
   if(tutorStatus == false && studentStatus == false){
