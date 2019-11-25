@@ -167,7 +167,7 @@ app.get('/profile', function(req, res){
 
 
 //will render base registration page
-app.get('/regPage', function(req, res){
+app.post('/regPage', function(req, res){
   var query1 = 'SELECT id FROM Users;';
   db.query(query1, task => {
       return task.batch([
