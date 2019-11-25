@@ -37,6 +37,7 @@ function formDone(){
   document.getElementById("passError").innerHTML = "";
   document.getElementById("cPassError").innerHTML = "";
   document.getElementById("usernameError").innerHTML = "";
+  document.getElementById("pronounsError").innerHTML = "";
 
   if(fName.length == 0){
     document.getElementById("fNameError").innerHTML = "* Please Enter Your First Name";
