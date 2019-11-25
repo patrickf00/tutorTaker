@@ -25,6 +25,7 @@ function formDone(){
   var email = document.forms["regForm"]["email"].value;
   var password = document.forms["regForm"]["password"].value;
   var cPassword = document.forms["regForm"]["cPassword"].value;
+  var username = document.forms["regForm"]["username"].value;
   var ret = true;
   document.getElementById("fNameError").innerHTML = "";
   document.getElementById("lNameError").innerHTML = "";
@@ -34,6 +35,7 @@ function formDone(){
   document.getElementById("emailError").innerHTML = "";
   document.getElementById("passError").innerHTML = "";
   document.getElementById("cPassError").innerHTML = "";
+  document.getElementById("usernameError").innerHTML = "";
 
   if(fName.length == 0){
     document.getElementById("fNameError").innerHTML = "* Please Enter Your First Name";
@@ -59,6 +61,10 @@ function formDone(){
     if(subjectStatus.length == 0){
       document.getElementById("subjectError").innerHTML = "* Please Select a Subject";
     }
+  }
+  if(username.length == 0){
+    document.getElementById("usernameError").innerHTML = "* Please Enter a Username";
+    ret = false
   }
   if(email.length == 0){
     document.getElementById("emailError").innerHTML = "* Please Enter an E-mail";
