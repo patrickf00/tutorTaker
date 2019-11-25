@@ -193,56 +193,53 @@ app.post('/regPage', function(req, res){
 //will enter someones data to the db
 app.post('/regPage/valid', function(req, res){
   var complete = formDone();
-  if (complete) {
-  	var fname = req.body.fName;
-	var lname = req.body.lName;
-	var school = req.body.school;
-	var studentStatus1 = req.body.studentStatus;
-	if(studentStatus1 == "None"){
-	  var studentStatus = true;
-	}
-	else{
-	  var studentStatus = false;
-	}
-	var tutorStatus1 = req.body.tutorStatus;
-	if(tutorStatus1 == "None"){
-	  var tutorStatus = true;
-	}
-	else{
-	  var tutorStatus = false;
-	}
-	var yearStatus = req.body.yearStatus;
-	if(yearStatus == ""){
-	  yearStatus ="NULL";
-	}
-	var subjectStatus = req.body.subjectStatus;
-	if(subjectStatus == ""){
-	  subjectStatus ="NULL";
-	}
-	var email = req.body.email;
-	var password = req.body.password;
-	var pronouns = "they,them"; //temp till added to reg page
-	var username ="user" //temp till added to reg page
-	var rating = 10;
-	var price = 0.00; //temp till added to reg page
-	console.log(fname);
-	console.log(lname);
-	console.log(school);
-	console.log(studentStatus);
-	console.log(tutorStatus);
-	console.log(yearStatus);
-	console.log(subjectStatus);
-	console.log(email);
-	console.log(password);
-	res.render('pages/regPage',{})
-    var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "');";
-    db.query(sql, function (err, result) {
+  var fname = req.body.fName;
+  var lname = req.body.lName;
+  var school = req.body.school;
+  var studentStatus1 = req.body.studentStatus;
+  if(studentStatus1 == "None"){
+    var studentStatus = true;
+  }
+  else{
+    var studentStatus = false;
+  }
+  var tutorStatus1 = req.body.tutorStatus;
+  if(tutorStatus1 == "None"){
+    var tutorStatus = true;
+  }
+  else{
+    var tutorStatus = false;
+  }
+  var yearStatus = req.body.yearStatus;
+  if(yearStatus == ""){
+    yearStatus ="NULL";
+  }
+  var subjectStatus = req.body.subjectStatus;
+  if(subjectStatus == ""){
+    subjectStatus ="NULL";
+  }
+  var email = req.body.email;
+  var password = req.body.password;
+  var pronouns = "they,them"; //temp till added to reg page
+  var username ="user" //temp till added to reg page
+  var rating = 10;
+  var price = 0.00; //temp till added to reg page
+  console.log(fname);
+  console.log(lname);
+  console.log(school);
+  console.log(studentStatus);
+  console.log(tutorStatus);
+  console.log(yearStatus);
+  console.log(subjectStatus);
+  console.log(email);
+  console.log(password);
+  res.render('pages/regPage',{})
+  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "');";
+  db.query(sql, function (err, result) {
     if (err) throw err;
-      console.log("1 row inserted");
-    });
-  } else{
-  	res.render('pages/regPage',{})
- };
+    console.log("1 row inserted");
+  });
+});
 
 
 
