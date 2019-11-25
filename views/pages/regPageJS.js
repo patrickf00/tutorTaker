@@ -28,6 +28,7 @@ function formDone(){
   var username = document.forms["regForm"]["username"].value;
   var pronouns = document.forms["regForm"]["pronouns"].value;
   var ret = true;
+  //.
   document.getElementById("fNameError").innerHTML = "";
   document.getElementById("lNameError").innerHTML = "";
   document.getElementById("schoolError").innerHTML = "";
