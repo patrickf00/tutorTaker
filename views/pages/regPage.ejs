@@ -60,21 +60,21 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="validationFName" class="h6">First Name</label>
-                      <input name="fName" class="form-control" id="fName" placeholder="First Name">
+                      <input name="fName" class="form-control" id="fName" placeholder="First Name" required>
                       <span class="error"><small id="fNameError" style="color:red"></small></span>
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-group">
                       <label for="validationLName" class="h6">Last Name</label>
-                      <input name= "lName" class="form-control" id="lName" placeholder="Last Name">
+                      <input name= "lName" class="form-control" id="lName" placeholder="Last Name" required>
                       <span><small id="lNameError" style="color:red"></small></span>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="pronouns" class="h6">Preffered Prnouns</label>
-                  <select name="pronouns" class="form-control" id="pronouns">
+                  <select name="pronouns" class="form-control" id="pronouns" required>
                     <option value="">Select Your Pronouns</option>
                     <option value="he">he/him/his</option>
                     <option value="she">she/her/hers</option>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group">
                   <label for="validationSchool" class="h6">School</label>
-                  <select name="school" class="form-control" id="schoolSelect">
+                  <select name="school" class="form-control" id="schoolSelect" required>
                     <option value="">Select a School</option>
                     <option value="CU - Boulder">CU - Boulder</option>
                     <option value="UT - Arlington">UT - Arlington</option>
@@ -95,18 +95,18 @@
                 </div>
                 <p class="h6">Select Role</p>
                 <div class="form-check form-check-inline">
-                  <input name="studentStatus" class="form-check-input" type="checkbox" id="studentStatus" value="None">
+                  <input name="studentStatus" class="form-check-input" type="checkbox" id="studentStatus" value="None" required>
                   <label class="form-check-label" for="student">Student</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input name="tutorStatus" class="form-check-input" onclick ="tutorInfo('tutorCard', 1);" type="checkbox" name = "tutorStatus" id="tutorStatus">
+                  <input name="tutorStatus" class="form-check-input" onclick ="tutorInfo('tutorCard', 1);" type="checkbox" name = "tutorStatus" id="tutorStatus" required>
                   <label class="form-check-label" for="tutorCheck">Tutor</label>
                 </div>
                 <span class="error"><small id="typeStatus" style="color:red"></small></span>
                 <div class="card card-body" style="display:none;" id="tutorCard">
                   <div class="form-group" id="tutorForm">
                     <label for="validationSchool" class="h6">What Year Are You?</label>
-                    <select name="yearStatus" class="form-control" id="yearStatus">
+                    <select name="yearStatus" class="form-control" id="yearStatus" required>
                       <option value="">Select a Year</option>
                       <option value="Freshman">Freshman</option>
                       <option value="Sophomore">Sophomore</option>
@@ -117,7 +117,7 @@
                   </div>
                   <div class="form-group">
                     <label for="validationSubject" class="h6">What Subject?</label>
-                    <select name="subjectStatus" class="form-control" id="subjectStatus">
+                    <select name="subjectStatus" class="form-control" id="subjectStatus" required>
                       <option value="">Select a Subject</option>
                       <option value="Math">Math</option>
                       <option value="Physics">Physics</option>
@@ -131,17 +131,17 @@
                 <br>
                 <div class="form-group">
                   <label for="emailAddress" class="h6">Student E-mail</label>
-                  <input name="email" type="email" class="form-control" id="email" placeholder="example@school.edu">
+                  <input name="email" type="email" class="form-control" id="email" placeholder="example@school.edu" required>
                   <span class="error"><small id="emailError" style="color:red"></small></span>
                 </div>
                 <div class="form-group">
                   <label for="username" class="h6">Username</label>
-                  <input type="text" class="form-control" id="username" placeholder="Username">
+                  <input type="text" class="form-control" id="username" placeholder="Username" required>
                   <span class="error"><small id="usernameError" style="color:red"></small></span>
                 </div>
                 <div class="form-group">
                   <label for="pWord" class="h6">Password</label>
-                  <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+                  <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
                   <small id="passwordHelpBlock" class="form-text text-muted">
                     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
 
@@ -150,7 +150,7 @@
                 </div>
                 <div class="form-group">
                   <label for="pWordC" class="h6">Confirm Password</label>
-                  <input type="password" class="form-control" id="cPassword" placeholder="Confirm Password">
+                  <input type="password" class="form-control" id="cPassword" placeholder="Confirm Password" required>
                   <span class="error"><small id="cPassError" style="color:red"></small></span>
                 </div>
                 <br>
