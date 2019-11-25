@@ -52,7 +52,7 @@ function formDone(){
     ret = false
   }
    if(pronouns.length == 0){
-    document.getElementById("pronounError").innerHTML = "* Please Select Your Pronouns";
+    document.getElementById("pronounsError").innerHTML = "* Please Select Your Pronouns";
     ret = false
   }
   if(tutorStatus == false && studentStatus == false){
@@ -93,5 +93,10 @@ function formDone(){
       document.getElementById("cPassError").innerHTML = "* Passwords Do Not Match";
     }
   }
-  return ret;
+  if(ret){
+    document.forms['regForm'].submit();
+  } else{
+    window.history.forward(-1);
+    console.alert("Please fill in the missing portions of the form.")
+  }
 }
