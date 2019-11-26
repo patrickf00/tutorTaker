@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,7 +31,6 @@
         color: black;
       }
       
-
         /* Box styles */
         .myBox {
         border: none;
@@ -40,27 +40,22 @@
         height: 200px;
         overflow: scroll;
         }
-
         /* Scrollbar styles */
         ::-webkit-scrollbar {
         width: 12px;
         height: 12px;
         }
-
         ::-webkit-scrollbar-track {
         background: #f5f5f5;
         border-radius: 10px;
         }
-
         ::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background: #ccc;  
         }
-
         ::-webkit-scrollbar-thumb:hover {
         background: #999;  
         }
-
         /* Button used to open the chat form - fixed at the bottom of the page */
     .open-button {
       background-color: #555;
@@ -74,7 +69,6 @@
       right: 28px;
       width: 280px;
     }
-
     /* The popup chat - hidden by default */
     .chat-popup {
       display: none;
@@ -84,14 +78,12 @@
       border: 3px solid #f1f1f1;
       z-index: 9;
     }
-
     /* Add styles to the form container */
     .form-container {
       max-width: 300px;
       padding: 10px;
       background-color: white;
     }
-
     /* Full-width textarea */
     .form-container textarea {
       width: 100%;
@@ -102,16 +94,14 @@
       resize: none;
       min-height: 200px;
     }
-
     /* When the textarea gets focus, do something */
     .form-container textarea:focus {
       background-color: #ddd;
       outline: none;
     }
-
     /* Set a style for the submit/send button */
     .form-container .btn {
-      background-color: #4CAF50;
+      background-color: #C7BA7C;
       color: white;
       padding: 16px 20px;
       border: none;
@@ -120,12 +110,10 @@
       margin-bottom:10px;
       opacity: 0.8;
     }
-
     /* Add a red background color to the cancel button */
     .form-container .cancel {
-      background-color: red;
+      background-color: #A9A9A9;
     }
-
     /* Add some hover effects to buttons */
     .form-container .btn:hover, .open-button:hover {
       opacity: 1;
@@ -229,7 +217,6 @@
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }
-
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
