@@ -30,7 +30,7 @@
         background-color: #CFbf5C;
         color: black;
       }
-      
+
         /* Box styles */
         .myBox {
         border: none;
@@ -51,10 +51,10 @@
         }
         ::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: #ccc;  
+        background: #ccc;
         }
         ::-webkit-scrollbar-thumb:hover {
-        background: #999;  
+        background: #999;
         }
         /* Button used to open the chat form - fixed at the bottom of the page */
     .open-button {
@@ -118,7 +118,7 @@
     .form-container .btn:hover, .open-button:hover {
       opacity: 1;
     }
-    
+
     </style>
   </head>
   <body>
@@ -128,11 +128,11 @@
       <a class="active"href="#about">About</a>
       <a class="active"href="#about">Find Tutor</a>
       <a class="active"href="#about">Settings</a>
-      </div> 
+      </div>
     </div>
   </body>
-          
-  
+
+
 
   <div class ="container-fluid">
     <br>
@@ -144,9 +144,9 @@
           <div class="col-5">
             <div class="card mx-auto" style="width: 23rem;">
               <img class="card-img-top" src="blank.png" alt="Profile Picture">
-              <p><center>Year in School</center></p>
-              <p><center>Subject</center></p>
-              <p><center>Average Rating</center></p>
+              <p><center><%= users[0].schoollevel %></center></p>
+              <p><center>Subjects: <%= users[0].subjects %></center></p>
+              <p><center>Average Rating: <%= users[0].rating %></center></p>
               <center><span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
@@ -154,14 +154,14 @@
               <span class="fa fa-star"></span>
               <br>
             </div>
-          </div> 
+          </div>
           <div class="col-4">
             <div class="row">
               <div class="container-fluid">
                 <div class="row">
                   <div>
-                    <h3>Name</h3>
-                    <h5> University of Colorado</h5>
+                    <h3><%= users[0].firstname %> <%= users[0].lastname %></h3>
+                    <h5><%= users[0].location %></h5>
                     <div class="card mx-auto" style="width: 33rem;">
                         <div class="card-body">
                           <h5>Bio:</h5>
@@ -180,7 +180,7 @@
                   </div>
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
           <div class="card-body">
             <div class="row">
@@ -189,15 +189,15 @@
                   <div class="card-body">
                     <div class="myBox">
                       <h5>Other User Feedback:</h5>
-                      
+
 
                     </div>
                 </div>
-              </div>  
-            </div>  
+              </div>
+            </div>
           </div>
-        </div> 
-      </div> 
+        </div>
+      </div>
     </div>
   </div>
 <button class="open-button" onclick="openForm()">Chat</button>
@@ -210,7 +210,7 @@
 
     <button id="button" type="submit" class="btn">Send</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-    <script src="server.js"></script>
+    <script src="message.js"></script>
 
   </form>
 </div>

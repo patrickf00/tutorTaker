@@ -18,9 +18,15 @@ const DB = process.env.DATABASE_URL || {
 }; // Use either database URL assigned by Heroku, or defaults
 
 const express = require('express'); // Add the express framework has been added
+const session = require('express-session');
 var app = express();
 
 const bodyParser = require('body-parser'); // Add the body-parser tool has been added
+app.use(session({
+  secret: 'yeet',
+  resave: false,
+  saveUninitialized: true
+})); // Add the session handler
 app.use(bodyParser.json());              // Add support for JSON encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Add support for URL encoded bodies
 app.set('view engine', 'ejs');
@@ -121,17 +127,29 @@ app.get('/tutor-finder/filter', function(req, res){
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
   console.log(username1);
-  var query1 = "SELECT pwdhash FROM users WHERE email = '" + username1 + "';";
+  var query1 = "SELECT username, email, id, pwdHash, lastName, firstName FROM users WHERE email = '" + username1 + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
       ]);
   })
   .then(data => {
-    console.log(data)
-    res.render('pages/LoginPage',{
-        users: data
-      })
+    if(!data){ // User not found in DB
+      //TODO: display user not found message & redirect to registration page
+      res.render('pages/regPage');
+    }else if(req.body.verifyPwd != data[0].pwdhash){ // Username doesn't match password
+      // Placeholder for now
+      res.render('pages/regPage'); //TODO: display password error
+    }else{ // Successful login
+      // Set user session data & redirect to profile
+      sess=req.session;
+      sess.username = data[0].username;
+      sess.email = data[0].email;
+      sess.uid = data[0].id;
+      sess.name = [data[0].lastname, data[0].firstname];
+      res.redirect('/profile');
+      console.log(sess);
+    }
   })
   .catch(err => {
       // display error message in case an error
@@ -143,7 +161,8 @@ app.post('/login/verify', function(req, res){
 });
 
 app.get('/profile', function(req, res){
-  var query1 = 'SELECT reviewText';
+  var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
+  console.log(query1)
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
