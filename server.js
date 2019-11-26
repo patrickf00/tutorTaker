@@ -161,29 +161,53 @@ app.post('/login/verify', function(req, res){
 });
 
 app.get('/profile', function(req, res){
-  var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
-  console.log(query1)
-  db.query(query1, task => {
-      return task.batch([
-          task.any(query1)
-      ]);
-  })
-  .then(data => {
-    console.log(data)
+  defaultUsers = [{
+    id: '',
+    lastname: '',
+    firstname: '',
+    pronouns: '',
+    username: '',
+    email: '',
+    pwdhash: '',
+    tutor: false,
+    student: false,
+    rating: 0,
+    location: '',
+    schoollevel: '',
+    subjects: '',
+    price: ''
+  }]
+  if(!req.session.uid){
+    console.log("Rendering for empty user");
     res.render('pages/Profile',{
+      users: defaultUsers
+    });
+  }else{
+    var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
+    console.log(query1)
+    db.query(query1, task => {
+      return task.batch([
+        task.any(query1)
+      ]);
+    })
+    .then(data => {
+      // TODO: Add redirect for users who aren't logged in (session undefined)
+      // Default user values to avoid crashing when someone isn't logged in
+      console.log(data)
+      console.log("Rendering for valid user");
+      res.render('pages/Profile',{
         users: data
-      })
-  })
-  .catch(err => {
+      });
+    })
+    .catch(err => {
       // display error message in case an error
       console.log('error', err);
       res.render('pages/Profile',{
-           users: ''
+        users: ''
       })
-  })
+    })
+  }
 });
-
-
 
 //will render base registration page
 app.post('/regPage', function(req, res){
@@ -207,7 +231,6 @@ app.post('/regPage', function(req, res){
       })
   })
 });
-
 
 //will enter someones data to the db
 app.post('/regPage/valid', function(req, res){
