@@ -171,7 +171,7 @@ app.get('/profile', function(req, res){
     console.log(query1)
     db.query(query1, task => {
       return task.batch([
-        task.any(query1)
+        task.any(query1),
         task.any(query2)
       ]);
     })
