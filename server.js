@@ -245,10 +245,10 @@ app.post('/regPage/valid', function(req, res){
   }
   var email = req.body.email;
   var password = req.body.password;
-  var pronouns = "they,them"; //temp till added to reg page
-  var username ="user" //temp till added to reg page
+  var pronouns = req.body.pronouns; 
+  var username =req.body.username;
   var rating = 10;
-  var price = 0.00; //temp till added to reg page
+  var price = Number(req.body.wage);
   console.log(fname);
   console.log(lname);
   console.log(school);
