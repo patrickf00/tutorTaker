@@ -169,9 +169,10 @@ app.get('/profile', function(req, res){
     // gets all feed back for user
     var query2 = "SELECT reviewText FROM feedback WHERE userID= '" + req.session.uid + "';";
     console.log(query1)
-    db.query(query1, task => {
+    db.query(query1, query2, task => {
       return task.batch([
         task.any(query1)
+        task.any(query2)
       ]);
     })
     .then(data => {
@@ -180,7 +181,8 @@ app.get('/profile', function(req, res){
       console.log(data)
       console.log("Rendering for valid user");
       res.render('pages/Profile',{
-        users: data
+        users: data[0],
+        feedback: data[1]
       });
     })
     .catch(err => {
