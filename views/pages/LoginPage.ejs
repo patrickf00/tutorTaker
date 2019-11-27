@@ -9,7 +9,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <style>
-          <%# style for nav bar %>
           .topnav{
             background-color: #C7BA7C;
             overflow:hidden;
@@ -41,7 +40,6 @@
       </style>
       </head>
       <body style="background-color:#000000">
-        <%# start of navbar %>
         <div class="topnav">
           <form action="/">
             <input type="submit" name="home" value="Home">
@@ -50,17 +48,14 @@
         </div>
         <div class="container-fluid">
           <br>
-          <%# title on screen %>
           <h1 style="text-align: center;color:#C7BA7C;font-family:georgia">Tutor Taker</h1>
           <br>
           <br>
           <div class="card mx-auto" style="width: 30rem;">
             <div class="card-body">
-              <%# start of login form %>
               <form action="/login/verify" method="POST" name="regForm" id="regForm" >
                 <div class="col">
                   <div class="form-group">
-                    <%# login e-mail %>
                     <label for="validationEmail" class="h6">Student Email</label>
                     <input name="verifyEmail" type="input" class="form-control" id="email" placeholder="example@school.edu">
                     <span class="error"><small id="emailError" style="color:red"></small></span>
@@ -68,7 +63,6 @@
                 </div>
                 <div class="col">
                   <div class="form-group">
-                    <%# login password %>
                     <label for="validationPassword" class="h6">Password</label>
                     <input name="verifyPwd" type ="password" class="form-control" id="pword" placeholder="Password" value= ''>
                     <span class="error"><small id="passError" style="color:red"></small></span>
@@ -96,10 +90,8 @@
                 </center>
                 <div class="mt-2">
                  <center>
-                  <%# submit (login) button%>
                   <input class="btn btn-lg btn-dark" type="submit" value="Sign in"></input>
                   <script> var pass = document.getElementById('pword').value; </script>
-                  <%# button that takes you to registartion page%>
                   <input class="btn btn-lg btn-dark" type="submit" value="Register" formaction="/regPage"></input>
                  </center>
                 </div>
