@@ -45,7 +45,7 @@ app.use(express.static(__dirname + '/')); // This line is necessary for us to us
 
 // will render index page (renders as login)
 app.get('/', function(req, res){
-	res.redirect('/login',{})
+	res.redirect('/login')
 });
 
 /* will render the search page*/
@@ -103,24 +103,6 @@ app.get('/tutor-finder/filter', function(req, res){
 // //will render base login page
 app.get('/login', function(req, res){
   res.render('pages/loginPage');
-  db.query(query1, task => {
-      return task.batch([
-          task.any(query1)
-      ]);
-  })
-  .then(data => {
-    console.log(data)
-    res.render('pages/LoginPage',{
-        users: data
-      })
-  })
-  .catch(err => {
-      // display error message in case an error
-      console.log('error', err);
-      res.render('pages/LoginPage',{
-           users: ''
-      })
-  })
 });
 
 //will get request for verification process the login page
