@@ -144,9 +144,9 @@
           <div class="col-5">
             <div class="card mx-auto" style="width: 23rem;">
               <img class="card-img-top" src="blank.png" alt="Profile Picture">
-              <p><center><%= users.schoollevel %></center></p>
-              <p><center>Subjects: <%= users.subjects %></center></p>
-              <p><center>Average Rating: <%= users.rating %></center></p>
+              <p><center><%= users[0].schoollevel %></center></p>
+              <p><center>Subjects: <%= users[0].subjects %></center></p>
+              <p><center>Average Rating: <%= users[0].rating %></center></p>
               <center><span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
@@ -160,8 +160,8 @@
               <div class="container-fluid">
                 <div class="row">
                   <div>
-                    <h3><%= users.firstname %> <%= users.lastname %></h3>
-                    <h5><%= users.location %></h5>
+                    <h3><%= users[0].firstname %> <%= users.lastname %></h3>
+                    <h5><%= users[0].location %></h5>
                     <div class="card mx-auto" style="width: 33rem;">
                         <div class="card-body">
                           <h5>Bio:</h5>
