@@ -102,7 +102,7 @@ app.get('/tutor-finder/filter', function(req, res){
 
 // //will render base login page
 app.get('/login', function(req, res){
-  res.render('pages/loginPage');
+  res.render('pages/LoginPage');
 });
 
 //will get request for verification process the login page
