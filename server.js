@@ -167,7 +167,7 @@ app.get('/profile', function(req, res){
   }else{
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
     // gets all feedback for user
-    var query2 = "SELECT reviewText FROM feedback WHERE userID= '" + req.session.uid + "';";
+    var query2 = "SELECT reviewText FROM Feedback WHERE userID= '" + req.session.uid + "';";
     console.log(query1)
     db.task('get-everything', task => {
       return task.batch([
