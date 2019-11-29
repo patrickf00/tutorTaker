@@ -21,6 +21,11 @@ const express = require('express'); // Add the express framework has been added
 const session = require('express-session');
 var app = express();
 
+const chatkit = new Chatkit.default({
+  instanceLocator: "v1:us1:72542696-9aeb-4905-b562-282191c1d894",
+  key: "64bdf710-c3dc-467a-93d7-93b3d80ee827:MyNNpPQs0Xw86nvuNqWvnyyI/L4ICIShSqsgVQmDjnk="
+});
+
 const bodyParser = require('body-parser'); // Add the body-parser tool has been added
 app.use(session({
   secret: 'yeet',
@@ -246,7 +251,7 @@ app.post('/regPage/valid', function(req, res){
   }
   var email = req.body.email;
   var password = req.body.password;
-  var pronouns = req.body.pronouns; 
+  var pronouns = req.body.pronouns;
   var username =req.body.username;
   var rating = 10;
   var price = Number(req.body.wage);
@@ -265,10 +270,27 @@ app.post('/regPage/valid', function(req, res){
     if (err) throw err;
     console.log("1 row inserted");
   });
+  var uid;
+  var sql2 = "SELECT id FROM Users WHERE email='" + email + "';";
+  db.query(sql2, task => {
+      return task.batch([
+          task.any(sql2)
+      ]);
+  })
+  .then(data => {
+    uid = data[0].id
+    chatkit.createUser({
+      id: uid,
+      name: fname + " " + lname
+    });
+    res.redirect('/login');
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/regPage')
+  })
 });
-
-
-
 
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
