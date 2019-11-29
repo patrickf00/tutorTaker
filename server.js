@@ -182,8 +182,8 @@ app.get('/profile', function(req, res){
       console.log("Rendering for valid user");
       res.render('pages/Profile',{
         users: data[0],
-        feed: data[1]
-      });
+        feedback: data[1]
+      })
     })
     .catch(err => {
       // display error message in case an error
