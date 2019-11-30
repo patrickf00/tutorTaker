@@ -175,11 +175,13 @@ app.get('/profile', function(req, res){
     });
   }else{
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
+
     // gets all feed back for user
     //var query2 = "SELECT reviewText FROM feedback WHERE userID= '" + req.session.uid + "';";
     db.query(query1, task => {
       return task.batch([
-        task.any(query1)
+        task.any(query1),
+        task.any(query2)
       ]);
     })
     .then(data => {
@@ -188,9 +190,9 @@ app.get('/profile', function(req, res){
       console.log(data)
       console.log("Rendering for valid user");
       res.render('pages/Profile',{
-        users: data
-        //feedback: data[1]
-      });
+        users: data[0],
+        feedback: data[1]
+      })
     })
     .catch(err => {
       // display error message in case an error
