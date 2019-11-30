@@ -19,6 +19,8 @@ const DB = process.env.DATABASE_URL || {
 
 const express = require('express'); // Add the express framework has been added
 const session = require('express-session');
+const Chatkit = require('@pusher/chatkit-server');
+const cookieParser = require('cookie-parser')
 var app = express();
 
 const chatkit = new Chatkit.default({
@@ -34,6 +36,7 @@ app.use(session({
 })); // Add the session handler
 app.use(bodyParser.json());              // Add support for JSON encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Add support for URL encoded bodies
+app.use(cookieParser()); // Add cookie parser tool
 app.set('view engine', 'ejs');
 
 
@@ -112,7 +115,7 @@ app.get('/login', function(req, res){
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
-  var username1 = req.body.verifyUsername;
+  var username1 = req.body.verifyEmail;
   console.log(username1);
   var query1 = "SELECT username, email, id, pwdHash, lastName, firstName FROM users WHERE username = '" + username1 + "';";
   db.query(query1, task => {
@@ -134,6 +137,7 @@ app.post('/login/verify', function(req, res){
       sess.email = data[0].email;
       sess.uid = data[0].id;
       sess.name = [data[0].lastname, data[0].firstname];
+      res.cookie('uid', sess.uid);
       res.redirect('/profile');
       console.log(sess);
     }
@@ -173,7 +177,6 @@ app.get('/profile', function(req, res){
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
     // gets all feed back for user
     //var query2 = "SELECT reviewText FROM feedback WHERE userID= '" + req.session.uid + "';";
-    console.log(query1)
     db.query(query1, task => {
       return task.batch([
         task.any(query1)
@@ -264,21 +267,15 @@ app.post('/regPage/valid', function(req, res){
   console.log(subjectStatus);
   console.log(email);
   console.log(password);
-  res.render('pages/regPage',{})
-  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "');";
-  db.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("1 row inserted");
-  });
-  var uid;
-  var sql2 = "SELECT id FROM Users WHERE email='" + email + "';";
-  db.query(sql2, task => {
-      return task.batch([
-          task.any(sql2)
-      ]);
+  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "'); " +
+    "SELECT id FROM Users WHERE email='" + email + "';";
+  db.query(sql, task => {
+    return task.batch([
+        task.any(sql2)
+    ]);
   })
   .then(data => {
-    uid = data[0].id
+    uid = data[0].id;
     chatkit.createUser({
       id: uid,
       name: fname + " " + lname
