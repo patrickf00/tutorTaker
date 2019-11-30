@@ -19,7 +19,14 @@ const DB = process.env.DATABASE_URL || {
 
 const express = require('express'); // Add the express framework has been added
 const session = require('express-session');
+const Chatkit = require('@pusher/chatkit-server');
+const cookieParser = require('cookie-parser')
 var app = express();
+
+const chatkit = new Chatkit.default({
+  instanceLocator: "v1:us1:72542696-9aeb-4905-b562-282191c1d894",
+  key: "64bdf710-c3dc-467a-93d7-93b3d80ee827:MyNNpPQs0Xw86nvuNqWvnyyI/L4ICIShSqsgVQmDjnk="
+});
 
 const bodyParser = require('body-parser'); // Add the body-parser tool has been added
 app.use(session({
@@ -29,6 +36,7 @@ app.use(session({
 })); // Add the session handler
 app.use(bodyParser.json());              // Add support for JSON encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Add support for URL encoded bodies
+app.use(cookieParser()); // Add cookie parser tool
 app.set('view engine', 'ejs');
 
 
@@ -107,7 +115,7 @@ app.get('/login', function(req, res){
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
-  var username1 = req.body.verifyUsername;
+  var username1 = req.body.verifyEmail;
   console.log(username1);
   var query1 = "SELECT username, email, id, pwdHash, lastName, firstName FROM users WHERE username = '" + username1 + "';";
   db.query(query1, task => {
@@ -129,6 +137,7 @@ app.post('/login/verify', function(req, res){
       sess.email = data[0].email;
       sess.uid = data[0].id;
       sess.name = [data[0].lastname, data[0].firstname];
+      res.cookie('uid', sess.uid);
       res.redirect('/profile');
       console.log(sess);
     }
@@ -166,10 +175,10 @@ app.get('/profile', function(req, res){
     });
   }else{
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
-    // gets all feedback for user
-    var query2 = "SELECT reviewText FROM Feedback WHERE userID= '" + req.session.uid + "';";
-    console.log(query1)
-    db.task('get-everything', task => {
+
+    // gets all feed back for user
+    //var query2 = "SELECT reviewText FROM feedback WHERE userID= '" + req.session.uid + "';";
+    db.query(query1, task => {
       return task.batch([
         task.any(query1),
         task.any(query2)
@@ -247,7 +256,7 @@ app.post('/regPage/valid', function(req, res){
   }
   var email = req.body.email;
   var password = req.body.password;
-  var pronouns = req.body.pronouns; 
+  var pronouns = req.body.pronouns;
   var username =req.body.username;
   var rating = 10;
   var price = Number(req.body.wage);
@@ -260,16 +269,27 @@ app.post('/regPage/valid', function(req, res){
   console.log(subjectStatus);
   console.log(email);
   console.log(password);
-  res.render('pages/regPage',{})
-  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "');";
-  db.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("1 row inserted");
-  });
+  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "'); " +
+    "SELECT id FROM Users WHERE email='" + email + "';";
+  db.query(sql, task => {
+    return task.batch([
+        task.any(sql2)
+    ]);
+  })
+  .then(data => {
+    uid = data[0].id;
+    chatkit.createUser({
+      id: uid,
+      name: fname + " " + lname
+    });
+    res.redirect('/login');
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/regPage')
+  })
 });
-
-
-
 
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
