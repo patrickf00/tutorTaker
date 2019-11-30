@@ -31,93 +31,93 @@
         color: black;
       }
 
-        /* Box styles */
-        .myBox {
+      /* Box styles */
+      .myBox {
+      border: none;
+      padding: 5px;
+      font: 24px/36px sans-serif;
+      width: 800px;
+      height: 200px;
+      overflow: scroll;
+      }
+      /* Scrollbar styles */
+      ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      }
+      ::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #ccc;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+      background: #999;
+      }
+      /* Button used to open the chat form - fixed at the bottom of the page */
+      .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
         border: none;
-        padding: 5px;
-        font: 24px/36px sans-serif;
-        width: 800px;
-        height: 200px;
-        overflow: scroll;
-        }
-        /* Scrollbar styles */
-        ::-webkit-scrollbar {
-        width: 12px;
-        height: 12px;
-        }
-        ::-webkit-scrollbar-track {
-        background: #f5f5f5;
-        border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: #ccc;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-        background: #999;
-        }
-        /* Button used to open the chat form - fixed at the bottom of the page */
-    .open-button {
-      background-color: #555;
-      color: white;
-      padding: 16px 20px;
-      border: none;
-      cursor: pointer;
-      opacity: 0.8;
-      position: fixed;
-      bottom: 23px;
-      right: 28px;
-      width: 280px;
-    }
-    /* The popup chat - hidden by default */
-    .chat-popup {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      right: 15px;
-      border: 3px solid #f1f1f1;
-      z-index: 9;
-    }
-    /* Add styles to the form container */
-    .form-container {
-      max-width: 300px;
-      padding: 10px;
-      background-color: white;
-    }
-    /* Full-width textarea */
-    .form-container textarea {
-      width: 100%;
-      padding: 15px;
-      margin: 5px 0 22px 0;
-      border: none;
-      background: #f1f1f1;
-      resize: none;
-      min-height: 200px;
-    }
-    /* When the textarea gets focus, do something */
-    .form-container textarea:focus {
-      background-color: #ddd;
-      outline: none;
-    }
-    /* Set a style for the submit/send button */
-    .form-container .btn {
-      background-color: #C7BA7C;
-      color: white;
-      padding: 16px 20px;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom:10px;
-      opacity: 0.8;
-    }
-    /* Add a red background color to the cancel button */
-    .form-container .cancel {
-      background-color: #A9A9A9;
-    }
-    /* Add some hover effects to buttons */
-    .form-container .btn:hover, .open-button:hover {
-      opacity: 1;
-    }
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+      }
+      /* The popup chat - hidden by default */
+      .chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+      }
+      /* Add styles to the form container */
+      .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+      }
+      /* Full-width textarea */
+      .form-container textarea {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+        resize: none;
+        min-height: 200px;
+      }
+      /* When the textarea gets focus, do something */
+      .form-container textarea:focus {
+        background-color: #ddd;
+        outline: none;
+      }
+      /* Set a style for the submit/send button */
+      .form-container .btn {
+        background-color: #C7BA7C;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom:10px;
+        opacity: 0.8;
+      }
+      /* Add a red background color to the cancel button */
+      .form-container .cancel {
+        background-color: #A9A9A9;
+      }
+      /* Add some hover effects to buttons */
+      .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+      }
 
     </style>
   </head>
@@ -193,7 +193,7 @@
                                   <div class="feedback">
                                     <p><%= feedback[i].reviewText %></p>
                                   </div>
-                                 </div> 
+                                 </div>
                                </div>
                               </div>
                             </div>
@@ -227,6 +227,8 @@
       var messages = document.getElementById("messages");
       var textbox = document.getElementById("textbox");
       var button = document.getElementById("button");
+
+      // Cookie parsing function
       function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
@@ -243,6 +245,20 @@
         return "";
       }
 
+      // Message rendering function - unimplemented
+      function renderMessage(message, roomId){
+        // Do stuff here to display messages?
+        // It seems like different chats for each roomId would be appropriate, but go crazy :)
+        // This is what's currently being used:
+        const li = document.createElement("li");
+        li.appendChild(
+          document.createTextNode(`${message.senderId}: ${
+            message.parts[0].payload.content
+          }`)
+        );
+        messages.appendChild(li);
+      }
+
       const tokenProvider = new Chatkit.TokenProvider({
         url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/72542696-9aeb-4905-b562-282191c1d894/token"
       });
@@ -256,20 +272,16 @@
       chatManager
         .connect()
         .then(currentUser => {
-          currentUser.subscribeToRoomMultipart({
-            roomId: currentUser.rooms[0].id,
-            hooks: {
-              onMessage: message => {
-                const li = document.createElement("li");
-                li.appendChild(
-                  document.createTextNode(`${message.senderId}: ${
-                    message.parts[0].payload.content
-                  }`)
-                );
-                messages.appendChild(li);
+          for(room of currentUser.rooms){
+            currentUser.subscribeToRoomMultipart({
+              roomId: room.id,
+              hooks: {
+                onMessage: message => {
+                  renderMessage(message, room.id);
+                }
               }
-            }
-          });
+            });
+          }
 
           const form = document.getElementById("message-form");
           form.addEventListener("submit", e => {

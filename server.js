@@ -49,6 +49,33 @@ const dbConfig = DB;
 let db = pgp(dbConfig);
 // set the view engine to ejs
 
+// Create a match between a student & tutor - add to database & create chat room
+// Unimplemented
+function createMatch(studentID, tutorID){
+  var query = "INSERT INTO Matches (studentid, tutorid) VALUES ('" + studentID + "', '" + tutorID + "'); " +
+    "SELECT matchid FROM Matches WHERE studentid = '" + studentID + "' AND tutorid = '" + tutorID + "'; " +
+    "SELECT fname FROM Users WHERE id = '" + studentID + "'; "
+    "SELECT fname FROM Users WHERE id = '" + tutorID + "';";
+  db.query(query, task => {
+    return task.batch([
+      task.any(query)
+    ]);
+  })
+  .then(data => {
+    roomId = data[0]['id'].toString();
+    studentName = data[1]['fname'];
+    tutorName = data[2]['fname'];
+    chatkit.createRoom({
+      id: roomId,
+      creatorId: studentID,
+      name: "Chat: " + studentName + " - " + tutorName
+    })
+    .then(() => console.log("Room created successfully"))
+    .catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
+}
+
 app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
 
 // will render index page (renders as login)
@@ -181,7 +208,7 @@ app.get('/profile', function(req, res){
     db.query(query1, task => {
       return task.batch([
         task.any(query1),
-        task.any(query2)
+        //task.any(query2)
       ]);
     })
     .then(data => {
@@ -190,8 +217,8 @@ app.get('/profile', function(req, res){
       console.log(data)
       console.log("Rendering for valid user");
       res.render('pages/Profile',{
-        users: data[0],
-        feedback: data[1]
+        users: data,
+        feedback: data
       })
     })
     .catch(err => {
@@ -206,25 +233,7 @@ app.get('/profile', function(req, res){
 
 //will render base registration page
 app.post('/regPage', function(req, res){
-  var query1 = 'SELECT id FROM Users;';
-  db.query(query1, task => {
-      return task.batch([
-          task.any(query1)
-      ]);
-  })
-  .then(data => {
-    console.log(data)
-    res.render('pages/regPage',{
-        users: data
-      })
-  })
-  .catch(err => {
-      // display error message in case an error
-      console.log('error', err);
-      res.render('pages/regPage',{
-           users: ''
-      })
-  })
+  res.render('pages/regPage');
 });
 
 //will enter someones data to the db
@@ -277,11 +286,14 @@ app.post('/regPage/valid', function(req, res){
     ]);
   })
   .then(data => {
-    uid = data[0].id;
+    uid = data[0]['id'].toString();
+    console.log("User ID:", uid, "for", fname, lname);
     chatkit.createUser({
       id: uid,
       name: fname + " " + lname
-    });
+    })
+    .then(() => console.log("Chatkit user created successfully"))
+    .catch((err) => console.log(err));
     res.redirect('/login');
   })
   .catch(err => {
