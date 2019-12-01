@@ -144,7 +144,7 @@ app.get('/login', function(req, res){
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
   console.log(username1);
-  var query1 = "SELECT username, email, id, pwdHash, lastName, firstName FROM users WHERE username = '" + username1 + "';";
+  var query1 = "SELECT username, email, id, pwdhash, lastName, firstName FROM users WHERE username = '" + username1 + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -154,13 +154,13 @@ app.post('/login/verify', function(req, res){
     if(!data){ // User not found in DB
       //TODO: display user not found message & redirect to registration page
       res.render('pages/regPage');
-    }else if(req.body.verifyPwd != data[0].pwdHash){ // Username doesn't match password
+    }else if(req.body.verifyPwd != data[0].pwdhash){ // Username doesn't match password
       // Placeholder for now
       console.log("Incorrect password");
       console.log("Input password = " + req.body.verifyPwd);
       console.log(typeof req.body.verifyPwd);
-      console.log(typeof data[0].pwdHash);
-      console.log(String(req.body.verifyPwd) != String(data[0].pwdHash));
+      console.log(typeof data[0].pwdhash);
+      console.log(String(req.body.verifyPwd) != String(data[0].pwdhash));
       console.log(data[0]);
       res.render('pages/regPage'); //TODO: display password error
     }else{ // Successful login
