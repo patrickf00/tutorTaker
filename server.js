@@ -232,7 +232,7 @@ app.get('/profile', function(req, res){
       // Default user values to avoid crashing when someone isn't logged in
       console.log("Rendering for valid user");
       //console.log(queryFeedback[0].reviewtext);
-      if (feedback){ 
+      if (queryFeedback){ 
         res.render('pages/Profile',{
         user: userData,
         feedback: queryFeedback[0]
