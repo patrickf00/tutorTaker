@@ -231,7 +231,7 @@ app.get('/profile', function(req, res){
       // TODO: Add redirect for users who aren't logged in (session undefined)
       // Default user values to avoid crashing when someone isn't logged in
       console.log("Rendering for valid user");
-      console.log(queryFeedback[0].reviewtext);
+      //console.log(queryFeedback[0].reviewtext);
       if (feedback){ 
         res.render('pages/Profile',{
         user: userData,
