@@ -154,7 +154,7 @@ app.post('/login/verify', function(req, res){
     if(!data){ // User not found in DB
       //TODO: display user not found message & redirect to registration page
       res.render('pages/regPage');
-    }else if(req.body.verifyPwd != data[0].pwdhash){ // Username doesn't match password
+    }else if(req.body.verifyPwd != data[0].pwdHash){ // Username doesn't match password
       // Placeholder for now
       res.render('pages/regPage'); //TODO: display password error
     }else{ // Successful login
