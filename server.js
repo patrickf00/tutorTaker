@@ -158,7 +158,7 @@ app.post('/login/verify', function(req, res){
       // Placeholder for now
       console.log("Incorrect password");
       console.log("Input password = " + req.body.verifyPwd);
-      console.log(req.body.verifyPwd != data[0].pwdHash);
+      console.log(String(req.body.verifyPwd) != data[0].pwdHash);
       console.log(data[0]);
       res.render('pages/regPage'); //TODO: display password error
     }else{ // Successful login
