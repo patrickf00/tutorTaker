@@ -234,7 +234,7 @@ app.get('/profile', function(req, res){
       console.log(queryFeedback[0].reviewtext);
       res.render('pages/Profile',{
         user: userData,
-        feedback: queryFeedback
+        feedback: queryFeedback[0]
       })
     })
     .catch(err => {
