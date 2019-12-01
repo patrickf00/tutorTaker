@@ -156,7 +156,7 @@ app.post('/login/verify', function(req, res){
       res.render('pages/regPage');
     }else if(req.body.verifyPwd != data[0].pwdHash){ // Username doesn't match password
       // Placeholder for now
-      alert("Incorrect password");
+      console.log("Incorrect password");
       res.render('pages/regPage'); //TODO: display password error
     }else{ // Successful login
       // Set user session data & redirect to profile
