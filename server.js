@@ -179,7 +179,7 @@ app.post('/login/verify', function(req, res){
 });
 
 app.get('/profile', function(req, res){
-  defaultUsers = [{
+  defaultUser = [{
     id: '',
     lastname: '',
     firstname: '',
@@ -198,34 +198,44 @@ app.get('/profile', function(req, res){
   if(!req.session.uid){
     console.log("Rendering for empty user");
     res.render('pages/Profile',{
-      users: defaultUsers
+      user: defaultUser
     });
   }else{
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
-
-    // gets all feed back for user
-    //var query2 = "SELECT reviewText FROM feedback WHERE userID= '" + req.session.uid + "';";
+    var userData;
     db.query(query1, task => {
-      return task.batch([
-        task.any(query1),
-        //task.any(query2)
-      ]);
+      return task.batch(
+        task.any(query1)
+      );
     })
     .then(data => {
+      console.log("User data:", data[0]);
+      userData = data[0];
+    })
+    .catch(err => console.log(err));
+
+    // gets all feed back for user
+    var query2 = "SELECT reviewText FROM feedback WHERE userid= '" + req.session.uid + "';";
+    db.query(query2, task => {
+      return task.batch([
+        task.any(query2)
+      ]);
+    })
+    .then(queryFeedback => {
       // TODO: Add redirect for users who aren't logged in (session undefined)
       // Default user values to avoid crashing when someone isn't logged in
-      console.log(data)
       console.log("Rendering for valid user");
+      console.log(queryFeedback[0].reviewtext);
       res.render('pages/Profile',{
-        users: data,
-        feedback: data
+        user: userData,
+        feedback: queryFeedback
       })
     })
     .catch(err => {
       // display error message in case an error
       console.log('error', err);
       res.render('pages/Profile',{
-        users: ''
+        user: ''
       })
     })
   }
