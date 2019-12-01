@@ -240,7 +240,7 @@ app.get('/profile', function(req, res){
       } else {
         res.render('pages/Profile',{
         user: userData,
-        feedback: undefined
+        feedback: null
         })
       }
       
@@ -249,7 +249,8 @@ app.get('/profile', function(req, res){
       // display error message in case an error
       console.log('error', err);
       res.render('pages/Profile',{
-        user: ''
+        user: '',
+        feedback: ''
       })
     })
   }
