@@ -305,6 +305,7 @@ app.get('/tutor-finder', function(req, res){
 });
 app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.query.filterChoice;
+  console.log("user location " + req.session.loc);
   if(filterChoice == 1){
     var query1 = "SELECT id, firstname, lastname, rating, subjects, location FROM users WHERE tutor = 1 AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
   } else if(filterChoice == 2) {
