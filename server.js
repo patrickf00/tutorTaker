@@ -135,7 +135,11 @@ app.get('/tutor-finder/filter', function(req, res){
   })
 });
 
-// //will render base login page
+//will render base about page
+app.get('/About', function(req, res){
+  res.render('pages/About');
+});
+//will render base login page
 app.get('/login', function(req, res){
   res.render('pages/LoginPage');
 });
@@ -151,7 +155,7 @@ app.post('/login/verify', function(req, res){
       ]);
   })
   .then(data => {
-    if(!data){ // User not found in DB
+    if(!data[0]){ // User not found in DB
       //TODO: display user not found message & redirect to registration page
       res.render('pages/regPage');
     }else if(req.body.verifyPwd != data[0].pwdhash){ // Username doesn't match password
@@ -159,8 +163,8 @@ app.post('/login/verify', function(req, res){
       console.log("Incorrect password");
       console.log("Input password = " + req.body.verifyPwd);
       console.log(typeof req.body.verifyPwd);
-      console.log(typeof data[0].pwdhash);
-      console.log(String(req.body.verifyPwd) != String(data[0].pwdhash));
+    //  console.log(typeof data[0].pwdhash);
+    //  console.log(String(req.body.verifyPwd) != String(data[0].pwdhash));
       console.log(data[0]);
       res.render('pages/regPage'); //TODO: display password error
     }else{ // Successful login
@@ -232,7 +236,7 @@ app.get('/profile', function(req, res){
       // Default user values to avoid crashing when someone isn't logged in
       console.log("Rendering for valid user");
       //console.log(queryFeedback[0].reviewtext);
-      if (queryFeedback){ 
+      if (queryFeedback){
         res.render('pages/Profile',{
         user: userData,
         feedback: queryFeedback[0]
@@ -243,7 +247,7 @@ app.get('/profile', function(req, res){
         feedback: null
         })
       }
-      
+
     })
     .catch(err => {
       // display error message in case an error
