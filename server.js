@@ -108,11 +108,11 @@ app.get('/tutor-finder', function(req, res){
 app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.query.filterChoice;
   if(filterChoice == 1){
-    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY lastname ASC;';
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, location FROM users WHERE tutor = 1 AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
   } else if(filterChoice == 2) {
-    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY rating DESC;'
+    var query1 = "SELECT id, firstname, lastname, rating, subjects FROM users WHERE tutor = 1 AND location = '" + req.session.loc + "' ORDER BY rating DESC;"
   } else {
-    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY subjects ASC;'
+    var query1 = "SELECT id, firstname, lastname, rating, subjects FROM users WHERE tutor = 1 AND location = '" + req.session.loc + "' ORDER BY subjects ASC;"
   }
 
   db.query(query1, task => {
@@ -148,7 +148,7 @@ app.get('/login', function(req, res){
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
   console.log(username1);
-  var query1 = "SELECT username, email, id, pwdhash, lastName, firstName FROM users WHERE username = '" + username1 + "';";
+  var query1 = "SELECT username, email, id, pwdhash, lastName, firstName, location FROM users WHERE username = '" + username1 + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -174,6 +174,7 @@ app.post('/login/verify', function(req, res){
       sess.email = data[0].email;
       sess.uid = data[0].id;
       sess.name = [data[0].lastname, data[0].firstname];
+      sess.loc = data[0].location;
       res.cookie('uid', sess.uid);
       res.redirect('/profile');
       console.log(sess);
@@ -331,6 +332,9 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage')
   })
 });
+
+// used when viewing another users profile
+
 
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
