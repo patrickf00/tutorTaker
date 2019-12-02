@@ -85,7 +85,7 @@ app.get('/', function(req, res){
 
 /* will render the search page*/
 app.get('/tutor-finder', function(req, res){
-  var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY lastname ASC;';
+  var query1 = 'SELECT id, firstname, lastname, rating, subjects, location FROM users ORDER BY lastname ASC;';
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
