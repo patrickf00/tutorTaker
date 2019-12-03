@@ -425,7 +425,7 @@ app.get('/feedback', function(req, res){
   .then(data => {
     console.log(data)
     res.render('pages/feedback',{
-      user = data[0]
+      user:  data[0]
     });
   })
   .catch(err => {
