@@ -413,6 +413,7 @@ app.get('/userProfile', function(req, res){
 
 // feedback page
 app.get('/feedback', function(req, res){
+  var userid = req.query.userId;
   console.log("USER ID for FEEDBACK: " + userid);
   var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
   db.query(query1, task => {
