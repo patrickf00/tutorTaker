@@ -364,10 +364,10 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  var username = req.body.user;
-
+  var userid = req.body.tutorDropDown;
+  console.log(userid)
   // get all info of student
-  var query1 = "SELECT * FROM users WHERE username = '"+ username + "';";
+  var query1 = "SELECT * FROM users WHERE username = '"+ userid + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -379,7 +379,7 @@ app.get('/userProfile', function(req, res){
   })
   .catch(err => console.log(err));
   // gets all feed back for user
-  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + username + "';";
+  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + userid + "';";
   db.query(query2, task => {
     return task.batch([
       task.any(query2)

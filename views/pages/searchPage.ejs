@@ -22,23 +22,12 @@
           </select>
         </form>
         <form action="/userProfile">
-          <table style="width: 100%;color:#C7BA7C;font-family:georgia"> 
-            <tr>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Rating</th>
-              <th>Subject</th>
-            </tr>
+          <select name="tutorDropDown" class="custom-select" id="tutorDropDown">
+            <option>Select a Tutor</option>
           <% for (var i = 0;i < tutors.length; i++) { %>
-            <% let ids = tutors[i].id%>
-            <tr>
-              <td name="studentChoice" id="studentChoice" value=<%= tutors[i].id %>><input type="submit" name="user" style="background:none;border:0;color:#C7BA7C" value=<%= tutors[i].username %>></input></td>
-              <td><%= tutors[i].firstname + " " +  tutors[i].lastname%></td>
-              <td><%= tutors[i].rating %></td>
-              <td ><%= tutors[i].subjects %></td>
-            </tr>
-          <% } %>
-          </table>    
+            <option value=<%= tutors[i].id%>><%= tutors[i].firstname + " " +  tutors[i].lastname + "\t" + tutors[i].rating + "\t" + tutors[i].subjects%><</option>  
+          <% } %>  
+          </select>
         </form>
       </div>
     </div>
