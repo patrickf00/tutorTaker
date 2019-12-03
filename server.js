@@ -450,23 +450,14 @@ app.post('/feedback/submitted', function(req, res){
         task.any(query)
     ]);
   })
-  var query2 = "SELECT * FROM users WHERE id = '" + userid + "';";
-  db.query(query2, task => {
-    return task.batch([
-      task.any(query2)
-    ]);
-  })
   //test
   .then(data => {
-    console.log("Data[1]:", data[0]);
-    res.redirect('/userProfile',{
-      user: data[0]
-    })
+    res.redirect('/profile')
   })
   .catch(err => {
       // display error message in case an error
       console.log('error', err);
-      res.render('pages/userProfile')
+      res.redirect('/profile')
   })
 });
 
