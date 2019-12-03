@@ -195,7 +195,7 @@ app.get('/profile', function(req, res){
     .catch(err => console.log(err));
 
     // gets all feed back for user
-    var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + req.session.uid + "';";
+    var query2 = "SELECT reviewText, rating FROM feedback WHERE userid= '" + req.session.uid + "';";
     db.query(query2, task => {
       return task.batch([
         task.any(query2)
@@ -205,7 +205,6 @@ app.get('/profile', function(req, res){
       // TODO: Add redirect for users who aren't logged in (session undefined)
       // Default user values to avoid crashing when someone isn't logged in
       console.log("Rendering for valid user");
-      //console.log(queryFeedback[0].reviewtext);
       if (queryFeedback){
         console.log("feedback query:", queryFeedback[0]);
         res.render('pages/Profile',{
