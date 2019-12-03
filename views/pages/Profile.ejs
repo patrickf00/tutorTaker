@@ -209,7 +209,11 @@
                       <h5><%= user.location %></h5>
                       <div class="card mx-auto" style="width: 33rem;">
                         <div class="card-head">Bio:</div>
+                      <% if(user.bio) {%>
                         <div class="card-body"><%= user.bio %></div>
+                      <% } else { %>
+                        <div class="card-body">No Bio</div>
+                      <% } %>
                       </div>
                     </div>
                   </div>
