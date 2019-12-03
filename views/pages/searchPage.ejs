@@ -22,7 +22,7 @@
           </select>
         </form>
         <form action="/userProfile">
-          <select name="tutorDropDown" class="custom-select" id="tutorDropDown" onchange="this.form.submit()">
+          <select name="studentID" class="custom-select" id="tutorDropDown" onchange="this.form.submit()">
             <option>Select a Tutor</option>
           <% for (var i = 0;i < tutors.length; i++) { %>
             <% console.log(tutors[i].id) %>
