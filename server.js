@@ -96,15 +96,6 @@ app.get('/login', function(req, res){
   });
 });
 
-//will render settings page
-app.get('/settings', function(req, res){
-  res.render('pages/settings');
-});
-
-app.get('/editBio', function(req, res){
-  res.render('pages/editBio')
-});
-
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
@@ -152,6 +143,19 @@ app.post('/login/verify', function(req, res){
            incorrectLogin: false
       })
   })
+});
+
+//will render settings page
+app.get('/settings', function(req, res){
+  res.render('pages/settings');
+});
+
+app.get('/editProfile', function(req, res){
+  res.render('pages/editBio')
+});
+
+app.post('/editProfile/change', function(req, res){
+  res.redirect('/profile');
 });
 
 //will render profile page
