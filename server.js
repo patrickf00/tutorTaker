@@ -206,7 +206,7 @@ app.get('/profile', function(req, res){
       console.log("Rendering for valid user");
       //console.log(queryFeedback[0].reviewtext);
       if (queryFeedback){
-        console.log("feedback query:", )
+        console.log("feedback query:", queryFeedback);
         res.render('pages/Profile',{
         user: userData,
         feedback: queryFeedback[0]
