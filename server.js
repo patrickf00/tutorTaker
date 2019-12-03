@@ -228,7 +228,7 @@ app.post('/regPage/valid', function(req, res){
   }
   var tutorStatus1 = req.body.tutorStatus;
   console.log("Tutor status: " + tutorStatus1);
-  if(tutorStatus1 == "None"){
+  if(tutorStatus1){
     var tutorStatus = true;
   }
   else{
