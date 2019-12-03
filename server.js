@@ -94,7 +94,7 @@ app.get('/login', function(req, res){
   res.render('pages/LoginPage');
 });
 
-app.get('settings', function(req, res){
+app.get('/settings', function(req, res){
   res.render('pages/settings')
 });
 
