@@ -132,7 +132,39 @@
       .form-container .btn:hover, .open-button:hover {
         opacity: 1;
       }
+      /* from w3 */
+      /* Float four columns side by side */
+      .column {
+        float: left;
+        width: 25%;
+        padding: 0 10px;
+      }
 
+      /* Remove extra left and right margins, due to padding */
+      .row {margin: 0 -5px;}
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Responsive columns */
+      @media screen and (max-width: 600px) {
+        .column {
+          width: 100%;
+          display: block;
+          margin-bottom: 20px;
+        }
+      }
+
+      /* Style the counter cards */
+      .card {
+        padding: 16px;
+        text-align: center;
+        background-color: #f1f1f1;
+      }
     </style>
   </head>
   <body style="background-color:#000000">
@@ -182,37 +214,33 @@
                       <h3><%= user.firstname %> <%= user.lastname %></h3>
                       <h5><%= user.location %></h5>
                       <div class="card mx-auto" style="width: 33rem;">
-                          <div class="card-body">
-                            <h5>Bio:</h5>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                          </div>
-                        </div>
+                        <div class="card-head">Bio:</div>
+                      <% if(user.bio) {%>
+                        <div class="card-body"><%= user.bio %></div>
+                      <% } else { %>
+                        <div class="card-body">No Bio</div>
+                      <% } %>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card" style="width: 57rem;">
+          <div class="card mx-auto">
             <div class="card-header"><h5>Other User Feedback:</h5></div>
+            <div class="card-body">
               <div class="row">
               <% for(var i = 0; i < feedback.length; i++) { %>
-                <div class="card">
-                  <div class="card-header">Review:</div>
-                  <div class="card-body"><h5><%= feedback[i].reviewtext %></h5></div>
-                  <div class="card-footer">Rating:<%= feedback[i].reviewtext %></div>
-                </div>   
-                <% } %>
+                <div class="column">
+                  <div class="card">
+                    <div class="card-header">Review:</div>
+                    <div class="card-body"><h5><%= feedback[i].reviewtext %></h5></div>
+                    <div class="card-footer">Rating: <%= feedback[i].rating %></div>
+                  </div> 
+                </div>  
+              <% } %>
               </div>
+            </div>
           </div>
         </div>
       </div>
