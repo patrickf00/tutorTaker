@@ -364,7 +364,7 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  let userid = req.query.tutorDropDown;
+  var userid = req.query.studentID;
   console.log("User ID**" + userid);
   // get all info of student
   var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
@@ -413,20 +413,47 @@ app.get('/userProfile', function(req, res){
 
 // feedback page
 app.get('/feedback', function(req, res){
-  var userid = req.query.userId;
+  // id of profile being viewed
+  var userid = req.query.studentID;
   console.log("USER ID for FEEDBACK: " + userid);
-  var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
-  db.query(query1, task => {
+  var query = "SELECT * FROM users WHERE id = '" + userid + "';"
+  db.query(query, task => {
       return task.batch([
-          task.any(query1)
+          task.any(query)
       ]);
   })
   .then(data => {
     console.log(data)
-    userData = data[0];
+    res.render('pages/feedback',{
+      user = data[0];
+    });
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/feedback',{
+           user: ''
+      })
+  })
 });
+
+// feedback submited
+app.post('/feedback/submitted', function(req, res){
+  // id of profile being viewed
+  var userid = req.query.studentID;
+  var feedback = req.query.feedback;
+  var rating = req.query.rating;
+  var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
+  db.query(query, task => {
+    return task.batch([
+        task.any(query)
+    ]);
+  .then(data => {
+    res.redirect('/userProfile')
+    });
+  })
+});
+
 
 // Start server
 app.listen(PORT);
