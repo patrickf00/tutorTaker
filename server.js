@@ -327,6 +327,7 @@ app.get('/tutor-finder', function(req, res){
 });
 app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.body.filterChoice;
+  var ids = req.body.ids;
   console.log(ids);
   console.log("user location " + req.session.loc);
   if(filterChoice == 1){
