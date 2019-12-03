@@ -5,7 +5,7 @@
   <style>
     .c-drop{
       background-color: none;
-      color: black;
+      color: #C7BA7C;
       padding: 16px;
       font-size: 16px;
       border: none;
@@ -38,7 +38,7 @@
       <div class="form-group">
         <form action="/tutor-finder/filter" method="GET">
           <label for="filterType" style="color:#C7BA7C;font-family:georgia" class="h6">Filter</label>
-          <select name="filterChoice" class="c-drop" id="filterType" onchange="this.form.submit()">
+          <select name="filterChoice" class="form-control" id="filterType" onchange="this.form.submit()">
             <option>Select a Filter</option>
             <option value="1">Alphabetical</option>
             <option value="2">Rating</option>
