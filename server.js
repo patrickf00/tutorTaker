@@ -91,12 +91,11 @@ app.get('/About', function(req, res){
 
 //will render base login page
 app.get('/login', function(req, res){
-  res.render('pages/LoginPage');
+  res.render('pages/LoginPage', {
+    incorrectLogin: false
+  });
 });
 
-app.get('/settings', function(req, res){
-  res.render('pages/settings')
-});
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
@@ -110,8 +109,10 @@ app.post('/login/verify', function(req, res){
   })
   .then(data => {
     if(!data[0]){ // User not found in DB
-      //TODO: display user not found message & redirect to registration page
-      res.render('pages/regPage');
+      res.render('pages/regPage', {
+        userAlreadyInInDatabase: false,
+        redirectFromLogin: true
+      });
     }else if(req.body.verifyPwd != data[0].pwdhash){ // Username doesn't match password
       // Placeholder for now
       console.log("Incorrect password");
@@ -120,7 +121,9 @@ app.post('/login/verify', function(req, res){
     //  console.log(typeof data[0].pwdhash);
     //  console.log(String(req.body.verifyPwd) != String(data[0].pwdhash));
       console.log(data[0]);
-      res.render('pages/regPage'); //TODO: display password error
+      res.render('pages/LoginPage', {
+        incorrectLogin: true
+      });
     }else{ // Successful login
       // Set user session data & redirect to profile
       sess=req.session;
@@ -138,7 +141,7 @@ app.post('/login/verify', function(req, res){
       // display error message in case an error
       console.log('error', err);
       res.render('pages/LoginPage',{
-           users: ''
+           incorrectLogin: false
       })
   })
 });
@@ -219,7 +222,10 @@ app.get('/profile', function(req, res){
 
 //will render base registration page
 app.post('/regPage', function(req, res){
-  res.render('pages/regPage');
+  res.render('pages/regPage', {
+    userAlreadyInDatabase: false,
+    redirectFromLogin: false
+  });
 });
 
 //will enter someones data to the db
@@ -286,7 +292,10 @@ app.post('/regPage/valid', function(req, res){
   .catch(err => {
       // display error message in case an error
       console.log('error', err);
-      res.render('pages/regPage')
+      res.render('pages/regPage', {
+        userAlreadyInDatabase: false,
+        redirectFromLogin: false
+      });
   })
 });
 
