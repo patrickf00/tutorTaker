@@ -364,7 +364,7 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  var userid = req.query.tutorDropDown;
+  let userid = req.query.tutorDropDown;
   console.log("User ID**" + userid);
   // get all info of student
   var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
@@ -409,6 +409,22 @@ app.get('/userProfile', function(req, res){
            feedback: ''
       })
   })
+});
+
+// feedback page
+app.get('/feedback', function(req, res){
+  console.log("USER ID for FEEDBACK: " + userid);
+  var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    userData = data[0];
+  })
+  .catch(err => console.log(err));
 });
 
 // Start server
