@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>User Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      .topnav{
+        background-color: #C7BA7C;
+        overflow:hidden;
+      }
+      .topnav a{
+        float:left;
+        color:#000000;
+        text-align: center;
+        padding: 10px 14px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+      .topnav a:hover {
+        background-color: #CFbf5C;
+        color: black;
+      }
+      .topnav input{
+        float:left;
+        color:#000000;
+        background-color: #C7BA7C;
+        display: inline-block;
+        text-align: center;
+        padding: 10px 14px;
+        text-decoration: none;
+        font-size: 17px;
+        border: none;
+      }
+      .topnav input:hover {
+        background-color: #CFbf5C;
+        color: black;
+      }
+      /* Box styles */
+      .myBox {
+      border: none;
+      padding: 5px;
+      font: 24px/36px sans-serif;
+      width: 800px;
+      height: 200px;
+      overflow: scroll;
+      }
+      /* Scrollbar styles */
+      ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      }
+      ::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #ccc;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+      background: #999;
+      }
+      /* Button used to open the chat form - fixed at the bottom of the page */
+      .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+      }
+      /* The popup chat - hidden by default */
+      .chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+      }
+      /* Add styles to the form container */
+      .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background-color: white;
+      }
+      /* Full-width textarea */
+      .form-container textarea {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+        resize: none;
+        min-height: 200px;
+      }
+      /* When the textarea gets focus, do something */
+      .form-container textarea:focus {
+        background-color: #ddd;
+        outline: none;
+      }
+      /* Set a style for the submit/send button */
+      .form-container .btn {
+        background-color: #C7BA7C;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom:10px;
+        opacity: 0.8;
+      }
+      /* Add a red background color to the cancel button */
+      .form-container .cancel {
+        background-color: #A9A9A9;
+      }
+      /* Add some hover effects to buttons */
+      .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+      }
+
+    </style>
+  </head>
+  <body style="background-color:#000000">
+    <div class="topnav">
+      <form action="/profile">
+        <input type="submit" name="Home" value="Home">
+      </form>
+      <a class="active"href="#about">About</a>
+      <form action="/tutor-finder">
+        <input type="submit" name="Find a Tutor" value="Find a Tutor">
+      </form>
+      <form action="/About">
+        <input type="submit" name="About" value="About">
+      </form>
+    </div>
+    <div class ="container-fluid">
+      <br>
+      <br>
+      <br>
+      <div class="card mx-auto" style="width: 60rem;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <div class="card mx-auto" style="width: 23rem;">
+                <img class="card-img-top" src="blank.png" alt="Profile Picture">
+                <p><center><%= user.schoollevel %></center></p>
+                <p><center>Subjects: <%= user.subjects %></center></p>
+                <p><center>Average Rating: <%= user.rating %></center></p>
+                <center><span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <br>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div>
+                      <h3><%= user.firstname %> <%= user.lastname %></h3>
+                      <h5><%= user.location %></h5>
+                      <div class="card mx-auto" style="width: 33rem;">
+                          <div class="card-body">
+                            <h5>Bio:</h5>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <div class="card mx-auto" style="width: 57rem;">
+                  <div class="card-body">
+                    <div class="myBox">
+                      <h5>Other User Feedback:</h5>
+                      <% if (feedback) { %>
+                        <% for(var i = 0; i < feedback.length; i++) { %>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-4">
+                                <div class="card mx-auto" style="width: 57rem;">
+                                  <div class="card-body">
+                                    <div class="feedback">
+                                      <p><%= feedback[i].reviewtext %></p>
+                                    </div>
+                                   </div>
+                                 </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <% } %>
+                      <% } %>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="openChat" class="open-button" onclick="openForm()">Chat</button>
+    <div class="chat-popup" id="chatbox">
+      <form id="message-form" class="form-container">
+        <h1>Chat</h1>
+
+        <label id="messages" for="msg"><b>Message</b></label>
+        <textarea id="textbox" placeholder="Type message.." name="msg" required></textarea>
+
+        <button id="button" type="submit" class="btn">Send</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+      </form>
+    </div>
+
+    <script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
+    <script>
+      var messages = document.getElementById("messages");
+      var textbox = document.getElementById("textbox");
+      var button = document.getElementById("button");
+
+      // Cookie parsing function
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      // Message rendering function - unimplemented
+      function renderMessage(message, roomId){
+        // Do stuff here to display messages?
+        // It seems like different chats for each roomId would be appropriate, but go crazy :)
+        // This is what's currently being used:
+        const li = document.createElement("li");
+        li.appendChild(
+          document.createTextNode(`${message.senderId}: ${
+            message.parts[0].payload.content
+          }`)
+        );
+        messages.appendChild(li);
+      }
+
+      const tokenProvider = new Chatkit.TokenProvider({
+        url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/72542696-9aeb-4905-b562-282191c1d894/token"
+      });
+
+      const chatManager = new Chatkit.ChatManager({
+        instanceLocator: "v1:us1:72542696-9aeb-4905-b562-282191c1d894",
+        userId: getCookie("uid"),
+        tokenProvider: tokenProvider
+      });
+
+      chatManager
+        .connect()
+        .then(currentUser => {
+          for(room of currentUser.rooms){
+            currentUser.subscribeToRoomMultipart({
+              roomId: room.id,
+              hooks: {
+                onMessage: message => {
+                  renderMessage(message, room.id);
+                }
+              }
+            });
+          }
+
+          const form = document.getElementById("message-form");
+          form.addEventListener("submit", e => {
+            e.preventDefault();
+            const input = document.getElementById("textbox");
+            currentUser.sendSimpleMessage({
+              text: input.value,
+              roomId: currentUser.rooms[0].id
+            });
+            input.value = "";
+          });
+        })
+        .catch(error => {
+          console.error("error:", error);
+        });
+    </script>
+
+    <script>
+      function openForm() {
+        document.getElementById("chatbox").style.display = "block";
+        document.getElementById("openChat").style.display = "none";
+      }
+      function closeForm() {
+        document.getElementById("chatbox").style.display = "none";
+        document.getElementById("openChat").style.display = "block";
+      }
+    </script>
+    </script>
+  </body>

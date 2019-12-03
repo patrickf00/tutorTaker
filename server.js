@@ -339,6 +339,55 @@ app.get('/tutor-finder/filter', function(req, res){
   })
 });
 
+// will render a profile of another user
+app.get('/userProfile', function(req, res){
+  // gets user id of selected student
+  var userId = req.query.studentChoice;
+  // get all info of student
+  var query1 = "SELECT * FROM users WHERE id = '"+ userId + "';";
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    userData = data[0];
+  })
+  .catch(err => console.log(err));
+  // gets all feed back for user
+  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + userId + "';";
+  db.query(query2, task => {
+    return task.batch([
+      task.any(query2)
+    ]);
+  })
+  .then(queryFeedback => {
+    // Default user values to avoid crashing when someone isn't logged in
+    console.log("Rendering for valid user");
+    //console.log(queryFeedback[0].reviewtext);
+    if (queryFeedback){
+      res.render('pages/userProfile',{
+      user: userData,
+      feedback: queryFeedback[0]
+      })
+    } else {
+      res.render('pages/userProfile',{
+      user: userData,
+      feedback: null
+      })
+    }
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/userProfile',{
+           user: '',
+           feedback: ''
+      })
+  })
+});
+
 // Start server
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
