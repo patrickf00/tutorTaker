@@ -209,13 +209,11 @@
                   <div class="card-body">
                     <div class="myBox">
                       <h5>Other User Feedback:</h5>
-                    <% if (feedback) { %>
                       <% for(var i = 0; i < feedback.length; i++) { %>
-                        <h5><% feedback.reviewtext[i] %></h5>
-                              
+                        <h5><%= feedback.reviewtext[i] %></h5>       
                       <% } %>
-                    <% } %>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
