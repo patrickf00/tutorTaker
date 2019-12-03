@@ -443,6 +443,7 @@ app.post('/feedback/submitted', function(req, res){
   var userid = req.query.studentID;
   var feedback = req.query.feedback;
   var rating = req.query.rating;
+  console.log("feedback:", feedback, "rating:", rating, "user id:", userid);
   var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
   db.query(query, task => {
     return task.batch([
