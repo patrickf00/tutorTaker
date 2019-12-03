@@ -38,7 +38,7 @@
       <div class="form-group">
         <form action="/tutor-finder/filter" method="GET">
           <label for="filterType" style="color:#C7BA7C;font-family:georgia" class="h6">Filter</label>
-          <select name="filterChoice" class="form-control" id="filterType" onclick="this.form.submit()">
+          <select name="filterChoice" class="form-control" id="filterType" onchange="this.form.submit()">
             <option>Select a Filter</option>
             <option value="1">Alphabetical</option>
             <option value="2">Rating</option>
@@ -46,7 +46,7 @@
           </select>
         </form>
         <form action="/userProfile">
-          <div name="studentID" class="c-drop" id="tutorDropDown" onchange="this.form.submit()" type="submit">
+          <div name="studentID" class="c-drop" id="tutorDropDown" onclick="this.form.submit()">
             <div class="c-drop-cont">
               <option>Select a Tutor</option>
             <% for (var i = 0;i < tutors.length; i++) { %>
