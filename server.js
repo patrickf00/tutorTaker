@@ -440,9 +440,9 @@ app.get('/feedback', function(req, res){
 // feedback submited
 app.post('/feedback/submitted', function(req, res){
   // id of profile being viewed
-  var userid = req.query.studentID;
-  var feedback = req.query.feedback;
-  var rating = req.query.rating;
+  var userid = req.body.studentID;
+  var feedback = req.body.feedback;
+  var rating = req.body.rating;
   console.log("feedback:", feedback, "rating:", rating, "user id:", userid);
   var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
   db.query(query, task => {
