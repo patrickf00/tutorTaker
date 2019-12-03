@@ -379,7 +379,7 @@ app.get('/userProfile', function(req, res){
       // display error message in case an error
       console.log('error', err);
       res.render('pages/userProfile',{
-           user: ''
+           user: '',
            feedback: ''
       })
   })
