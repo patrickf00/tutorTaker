@@ -94,6 +94,7 @@ app.get('/login', function(req, res){
   res.render('pages/LoginPage', {
     incorrectLogin: false
   });
+  req.session.destroy();
 });
 
 //will render settings page
