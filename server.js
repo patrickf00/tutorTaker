@@ -380,7 +380,7 @@ app.get('/userProfile', function(req, res){
   })
   .catch(err => console.log(err));
   // gets all feed back for user
-  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + userid + "';";
+  var query2 = "SELECT reviewtext, rating FROM feedback WHERE userid= '" + userid + "';";
   db.query(query2, task => {
     return task.batch([
       task.any(query2)
@@ -391,6 +391,7 @@ app.get('/userProfile', function(req, res){
     console.log("Rendering for valid user");
     //console.log(queryFeedback[0].reviewtext);
     if (queryFeedback){
+      console.log(queryFeedback);
       res.render('pages/userProfile',{
       user: userData,
       feedback: queryFeedback[0]
