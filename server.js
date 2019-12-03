@@ -97,6 +97,10 @@ app.get('/login', function(req, res){
 });
 
 
+app.get('/editBio', function(req, res){
+  res.render('pages/editBio')
+});
+
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
@@ -301,7 +305,7 @@ app.post('/regPage/valid', function(req, res){
 
 // will render the search page
 app.get('/tutor-finder', function(req, res){
-  var query1 = "SELECT id, firstname, lastname, rating, subjects, location FROM users WHERE tutor = true AND location = '" + req.session.loc + "'  ORDER BY lastname ASC;";
+  var query1 = "SELECT id, firstname, lastname, rating, subjects, location, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "'  ORDER BY lastname ASC;";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -325,11 +329,11 @@ app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.body.filterChoice;
   console.log("user location " + req.session.loc);
   if(filterChoice == 1){
-    var query1 = "SELECT id, firstname, lastname, rating, subjects, location FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
   } else if(filterChoice == 2) {
-    var query1 = "SELECT id, firstname, lastname, rating, subjects FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY rating DESC;"
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY rating DESC;"
   } else {
-    var query1 = "SELECT id, firstname, lastname, rating, subjects FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY subjects ASC;"
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY subjects ASC;"
   }
 
   db.query(query1, task => {
@@ -355,10 +359,10 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  var userId = req.body.studentChoice;
-  console.log(userId);
+  var username = req.body.user;
+  console.log(username);
   // get all info of student
-  var query1 = "SELECT * FROM users WHERE id = '"+ userId + "';";
+  var query1 = "SELECT * FROM users WHERE username = '"+ username + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -370,7 +374,7 @@ app.get('/userProfile', function(req, res){
   })
   .catch(err => console.log(err));
   // gets all feed back for user
-  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + userId + "';";
+  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + username + "';";
   db.query(query2, task => {
     return task.batch([
       task.any(query2)
