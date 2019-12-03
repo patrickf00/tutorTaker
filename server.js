@@ -83,58 +83,6 @@ app.get('/', function(req, res){
 	res.redirect('/login')
 });
 
-/* will render the search page*/
-app.get('/tutor-finder', function(req, res){
-  var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY lastname ASC;';
-  db.query(query1, task => {
-      return task.batch([
-          task.any(query1)
-      ]);
-  })
-  .then(data => {
-    console.log(data)
-    res.render('pages/searchPage',{
-        tutors: data
-      })
-  })
-  .catch(err => {
-      // display error message in case an error
-      console.log('error', err);
-      res.render('pages/searchPage',{
-           tutors: ''
-      })
-  })
-});
-app.get('/tutor-finder/filter', function(req, res){
-  var filterChoice = req.query.filterChoice;
-  if(filterChoice == 1){
-    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY lastname ASC;';
-  } else if(filterChoice == 2) {
-    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY rating DESC;'
-  } else {
-    var query1 = 'SELECT id, firstname, lastname, rating, subjects FROM users ORDER BY subjects ASC;'
-  }
-
-  db.query(query1, task => {
-      return task.batch([
-          task.any(query1)
-      ]);
-  })
-  .then(data => {
-    console.log(data)
-    res.render('pages/searchPage',{
-        tutors: data
-      })
-  })
-  .catch(err => {
-      // display error message in case an error
-      console.log('error', err);
-      res.render('pages/searchPage',{
-           tutors: ''
-      })
-  })
-});
-
 //will render base about page
 app.get('/About', function(req, res){
   res.render('pages/About');
@@ -148,7 +96,7 @@ app.get('/login', function(req, res){
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
   console.log(username1);
-  var query1 = "SELECT username, email, id, pwdhash, lastName, firstName FROM users WHERE username = '" + username1 + "';";
+  var query1 = "SELECT username, email, id, pwdhash, lastName, firstName, location FROM users WHERE username = '" + username1 + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -174,6 +122,7 @@ app.post('/login/verify', function(req, res){
       sess.email = data[0].email;
       sess.uid = data[0].id;
       sess.name = [data[0].lastname, data[0].firstname];
+      sess.loc = data[0].location;
       res.cookie('uid', sess.uid);
       res.redirect('/profile');
       console.log(sess);
@@ -279,7 +228,8 @@ app.post('/regPage/valid', function(req, res){
     var studentStatus = false;
   }
   var tutorStatus1 = req.body.tutorStatus;
-  if(tutorStatus1 == "None"){
+  console.log("Tutor status: " + tutorStatus1);
+  if(tutorStatus1){
     var tutorStatus = true;
   }
   else{
@@ -332,6 +282,60 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage')
   })
 });
+
+/* will render the search page*/
+app.get('/tutor-finder', function(req, res){
+  var query1 = 'SELECT id, firstname, lastname, rating, subjects, location FROM users ORDER BY lastname ASC;';
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/searchPage',{
+        tutors: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/searchPage',{
+           tutors: ''
+      })
+  })
+});
+app.get('/tutor-finder/filter', function(req, res){
+  var filterChoice = req.query.filterChoice;
+  console.log("user location " + req.session.loc);
+  if(filterChoice == 1){
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, location FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
+  } else if(filterChoice == 2) {
+    var query1 = "SELECT id, firstname, lastname, rating, subjects FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY rating DESC;"
+  } else {
+    var query1 = "SELECT id, firstname, lastname, rating, subjects FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY subjects ASC;"
+  }
+
+  db.query(query1, task => {
+      return task.batch([
+          task.any(query1)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/searchPage',{
+        tutors: data
+      })
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/searchPage',{
+           tutors: ''
+      })
+  })
+});
+
 
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
