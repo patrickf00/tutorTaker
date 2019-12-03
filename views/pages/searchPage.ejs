@@ -25,7 +25,7 @@
           <select name="tutorDropDown" class="custom-select" id="tutorDropDown" onchange="this.form.submit()">
             <option>Select a Tutor</option>
           <% for (var i = 0;i < tutors.length; i++) { %>
-            <option value=<%= tutors[i].id%>><%= tutors[i].firstname + " " +  tutors[i].lastname + "\t" + tutors[i].rating + "\t" + tutors[i].subjects%>></option>  
+            <option value=<%= tutors[i].id%>><%= tutors[i].firstname + " " +  tutors[i].lastname + "\t" + tutors[i].rating + "\t" + tutors[i].subjects%></option>  
           <% } %>  
           </select>
         </form>
