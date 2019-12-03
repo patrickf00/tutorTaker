@@ -96,6 +96,10 @@ app.get('/login', function(req, res){
   });
 });
 
+//will render settings page
+app.get('/settings', function(req, res){
+  res.render('pages/settings');
+});
 
 app.get('/editBio', function(req, res){
   res.render('pages/editBio')
@@ -327,7 +331,6 @@ app.get('/tutor-finder', function(req, res){
 });
 app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.body.filterChoice;
-  var ids = req.body.ids;
   console.log(ids);
   console.log("user location " + req.session.loc);
   if(filterChoice == 1){
@@ -362,7 +365,7 @@ app.get('/tutor-finder/filter', function(req, res){
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
   var username = req.body.user;
-  
+
   // get all info of student
   var query1 = "SELECT * FROM users WHERE username = '"+ username + "';";
   db.query(query1, task => {
