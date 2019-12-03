@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <title>Settings</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+       
+        <style>
+          <!--
+          .topnav{
+            background-color: #C7BA7C;
+            overflow:hidden;
+          }
+          .topnav a{
+            float:left;
+            color:#000000;
+            text-align: center;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+          .topnav a:hover {
+            background-color: #CFbf5C;
+            color: black;
+          }
+          .topnav input{
+            float:left;
+            color:#000000;
+            background-color: #C7BA7C;
+            display: inline-block;
+            text-align: center;
+            padding: 10px 14px;
+            text-decoration: none;
+            font-size: 17px;
+            border: none;
+          }
+          .topnav input:hover {
+            background-color: #CFbf5C;
+            color: black;
+          }
+      </style>
+      </head>
+      <body style="background-color:#000000">
+        <div class="topnav" >
+          <form action="/" >
+            <input type="submit" name="home" value="Home">
+          </form>
+          <form action="/About">
+            <input type="submit" name="About" value="About">
+          </form>
+        </div>
+        <div class="container-fluid">
+          <br>
+          <h1 style="text-align: center;color:#C7BA7C;font-family:georgia">Settings</h1>
+          <br>
+          <br>
+          <div class="card mx-auto" style="width: 30rem;">
+            <div class="card-body">
+              <form action="/regPage/valid" method="POST" onsubmit="formDone();" name="regForm" id="regForm" >
+                <div class="row">
+                  <div class="col">
+                    <a class="active"href="editBio.ejs">Edit Bio</a>
+                    
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </body>
