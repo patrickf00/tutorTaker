@@ -46,7 +46,7 @@
           </select>
         </form>
         <form action="/userProfile">
-          <div name="studentID" class="c-drop" id="tutorDropDown" onchange="this.form.submit()">
+          <div name="studentID" class="c-drop" id="tutorDropDown" onchange="this.form.submit()" type="submit">
             <div class="c-drop-cont">
               <option>Select a Tutor</option>
             <% for (var i = 0;i < tutors.length; i++) { %>
