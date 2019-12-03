@@ -425,7 +425,7 @@ app.get('/feedback', function(req, res){
   .then(data => {
     console.log(data)
     res.render('pages/feedback',{
-      user:  data[0]
+      user: data[0]
     });
   })
   .catch(err => {
@@ -455,7 +455,7 @@ app.post('/feedback/submitted', function(req, res){
   .catch(err => {
       // display error message in case an error
       console.log('error', err);
-      res.render('pages/feedback')
+      res.render('pages/userProfile')
   })
 });
 
