@@ -106,6 +106,72 @@ app.get('/editBio', function(req, res){
   res.render('pages/editBio')
 });
 
+app.post('/editBio/valid', function(req, res){
+  var fname = req.body.fName;
+  var lname = req.body.lName;
+  var bio = req.body.bio;
+  var studentStatus1 = req.body.studentStatus;
+  if(studentStatus1 == "None"){
+    var studentStatus = true;
+  }
+  else{
+    var studentStatus = false;
+  }
+  var tutorStatus1 = req.body.tutorStatus;
+  console.log("Tutor status: " + tutorStatus1);
+  if(tutorStatus1){
+    var tutorStatus = true;
+  }
+  else{
+    var tutorStatus = false;
+  }
+  var yearStatus = req.body.yearStatus;
+  if(yearStatus == ""){
+    yearStatus ="NULL";
+  }
+  var subjectStatus = req.body.subjectStatus;
+  if(subjectStatus == ""){
+    subjectStatus ="NULL";
+  }
+  var email = req.body.email;
+  var school = req.body.school;
+  var pronouns = req.body.pronouns;
+  var rating = 10;
+  var price = Number(req.body.wage);
+  console.log(fname);
+  console.log(lname);
+  console.log(school);
+  console.log(studentStatus);
+  console.log(tutorStatus);
+  console.log(yearStatus);
+  console.log(subjectStatus);
+  console.log(email);
+  console.log(bio)
+  var sql = "INSERT INTO Users (lastName, firstName, pronouns, pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "',,'" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "','" + bio + "'); " +
+    "SELECT id FROM Users WHERE email='" + email + "';";
+  db.query(sql, task => {
+    return task.batch([
+        task.any(sql2)
+    ]);
+  })
+  .then(data => {
+    uid = data[0]['id'].toString();
+    console.log("User ID:", uid, "for", fname, lname);
+    chatkit.createUser({
+      id: uid,
+      name: fname + " " + lname
+    })
+    .then(() => console.log("Chatkit user created successfully"))
+    .catch((err) => console.log(err));
+    res.redirect('/profile');
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/editBio')
+  })
+});
+
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
