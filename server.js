@@ -452,6 +452,11 @@ app.post('/feedback/submitted', function(req, res){
   .then(data => {
     res.redirect('/userProfile')
   })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/feedback')
+  })
 });
 
 
