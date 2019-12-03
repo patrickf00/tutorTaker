@@ -106,6 +106,38 @@ app.get('/editBio', function(req, res){
   res.render('pages/editBio')
 });
 
+app.post('/editBio/valid', function(req, res){
+  console.log("Body:", req.body);
+  changes = {
+      "lastName": req.body.lName,
+      "firstName": req.body.fName,
+      "pronouns": req.body.pronouns,
+      "tutor": (req.body.tutorStatus != "None"),
+      "student": (req.body.studentStatus != "None"),
+      "location": req.body.school,
+      "bio": req.body.bio
+  };
+  var update = "UPDATE Users SET ";
+  var element;
+  for(element in changes){
+    update += element + "='" + changes[element];
+    if(element != "bio"){
+      update += "', ";
+    }
+  }
+  update += "' WHERE id='" + req.session.uid + "';";
+
+  db.query(update, task => {
+    task.batch(
+      task.any(update)
+    );
+  })
+  .then(data => {
+    res.redirect('/profile');
+  })
+  .catch(err => console.log(err));
+});
+
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
@@ -174,6 +206,7 @@ app.get('/profile', function(req, res){
     subjects: 'None',
     price: ''
   };
+  var userData;
   if(!req.session.uid){
     console.log("Rendering for empty user");
     res.render('pages/Profile',{
@@ -182,7 +215,6 @@ app.get('/profile', function(req, res){
     });
   }else{
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
-    var userData;
     db.query(query1, task => {
       return task.batch(
         task.any(query1)
