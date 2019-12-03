@@ -340,11 +340,12 @@ app.get('/tutor-finder/filter', function(req, res){
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
   var userId = req.query.studentChoice;
+  console.log(userId);
   // get all info of student
   var query1 = "SELECT * FROM users WHERE id = '"+ userId + "';";
   db.query(query1, task => {
       return task.batch([
-          task.any(query)
+          task.any(query1)
       ]);
   })
   .then(data => {
