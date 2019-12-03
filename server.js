@@ -342,7 +342,7 @@ app.get('/userProfile', function(req, res){
   var userId = req.query.studentChoice;
   // get all info of student
   var query1 = "SELECT * FROM users WHERE id = '"+ userId + "';";
-  db.query(query, task => {
+  db.query(query1, task => {
       return task.batch([
           task.any(query)
       ]);
