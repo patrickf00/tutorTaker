@@ -458,9 +458,9 @@ app.post('/feedback/submitted', function(req, res){
   })
   //test
   .then(data => {
-    console.log("Data[1]:", data[1]);
+    console.log("Data[1]:", data[0]);
     res.redirect('/userProfile',{
-      user: data[1]
+      user: data[0]
     })
   })
   .catch(err => {
