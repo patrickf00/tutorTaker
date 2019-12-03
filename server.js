@@ -138,10 +138,10 @@ app.post('/login/verify', function(req, res){
 });
 
 app.get('/profile', function(req, res){
-  defaultUser = [{
+  defaultUser = {
     id: '',
-    lastname: '',
-    firstname: '',
+    lastname: 'Selected',
+    firstname: 'No User',
     pronouns: '',
     username: '',
     email: '',
@@ -150,14 +150,15 @@ app.get('/profile', function(req, res){
     student: false,
     rating: 0,
     location: '',
-    schoollevel: '',
-    subjects: '',
+    schoollevel: 'Empty',
+    subjects: 'None',
     price: ''
-  }]
+  };
   if(!req.session.uid){
     console.log("Rendering for empty user");
     res.render('pages/Profile',{
-      user: defaultUser
+      user: defaultUser,
+      feedback: defaultUser
     });
   }else{
     var query1 = "SELECT * FROM users WHERE id='" + req.session.uid + "';";
