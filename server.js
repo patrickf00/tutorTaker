@@ -365,7 +365,7 @@ app.get('/userProfile', function(req, res){
   })
   .catch(err => console.log(err));
   // gets all feed back for user
-  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + userId + "';";
+  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + username + "';";
   db.query(query2, task => {
     return task.batch([
       task.any(query2)
