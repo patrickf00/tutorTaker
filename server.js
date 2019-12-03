@@ -327,6 +327,7 @@ app.get('/tutor-finder', function(req, res){
 });
 app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.body.filterChoice;
+  console.log(ids);
   console.log("user location " + req.session.loc);
   if(filterChoice == 1){
     var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
@@ -360,7 +361,7 @@ app.get('/tutor-finder/filter', function(req, res){
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
   //var username = req.body.user;
-  console.log(ids);
+  
   // get all info of student
   var query1 = "SELECT * FROM users WHERE username = '"+ username + "';";
   db.query(query1, task => {
