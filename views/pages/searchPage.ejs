@@ -46,7 +46,7 @@
           </select>
         </form>
         <form action="/userProfile">
-          <div name="studentID" class="c-drop" id="tutorDropDown" onclick="this.form.submit()">
+          <select name="studentID" id="tutorDropDown" class="c-drop"onchange="this.form.submit()">
             <div class="c-drop-cont">
               <option>Select a Tutor</option>
             <% for (var i = 0;i < tutors.length; i++) { %>
@@ -54,7 +54,7 @@
               <option value=<%= tutors[i].id %>><%= "Name: " + tutors[i].firstname + " " +  tutors[i].lastname + "\t" + "Rating: " + tutors[i].rating + "\t" + "Major: " + tutors[i].subjects%></option>  
             <% } %> 
             </div> 
-          </div>
+          </select>
         </form>
       </div>
     </div>
