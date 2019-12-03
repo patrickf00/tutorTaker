@@ -10,6 +10,7 @@
       font-size: 16px;
       border: none;
       cursor: pointer;
+      appearance: none;
     }
     .c-drop-cont{
       display: show;
@@ -44,7 +45,7 @@
           </select>
         </form>
         <form action="/userProfile">
-          <select name="studentID" id="tutorDropDown" class="c-drop"onchange="this.form.submit()">
+          <!--<select name="studentID" id="tutorDropDown" class="c-drop"onchange="this.form.submit()"> -->
               <option class="c-drop-cont">Select a Tutor</option>
             <% for (var i = 0;i < tutors.length; i++) { %>
               <% console.log(tutors[i].id) %>
