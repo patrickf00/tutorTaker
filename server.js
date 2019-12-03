@@ -106,6 +106,7 @@ app.get('/editBio', function(req, res){
   res.render('pages/editBio')
 });
 
+
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
