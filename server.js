@@ -367,7 +367,7 @@ app.get('/userProfile', function(req, res){
   var userid = req.query.tutorDropDown;
   console.log("User ID**" + userid);
   // get all info of student
-  var query1 = "SELECT * FROM users WHERE username = '"+ userid + "';";
+  var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
