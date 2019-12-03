@@ -157,7 +157,6 @@
           <div class="row">
             <div class="col-5">
               <div class="card mx-auto" style="width: 23rem;">
-                <img class="card-img-top" src="blank.png" alt="Profile Picture">
                 <p><center><%= user.schoollevel %></center></p>
                 <p><center>Subjects: <%= user.subjects %></center></p>
                 <p><center>Average Rating: <%= user.rating %></center></p>
@@ -168,13 +167,10 @@
                 <span class="fa fa-star"></span>
                 <br>
               </div>
+              <br>
               <div class="card mx-auto" style="width: 23rem;">
-                <form action="#" method="POST">
-                  <h5>Leave a Rating</h5>
-                  <input type="number" name="rating" min="0" max="10" required>
-                  <h5>Leave Feedback</h5>
-                  <input type="text" name="feedback" placeholder="Leave feedback" required>
-                  <center><input type="submit" name="submit" value="Submit Feedback"></center>
+                <form action="#" method="GET">
+                  <center><input class="btn btn-lg btn-dark" type="submit" value="Leave Feedback"></input></center>
                 </form>
               </div>
             </div>
