@@ -202,24 +202,14 @@
               </div>
             </div>
           </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-4">
-                <div class="card mx-auto" style="width: 57rem;">
-                  <div class="card-body">
-                    <div class="myBox">
-                      <h5>Other User Feedback:</h5>
-                      <% for(var i = 0; i < feedback.length; i++) { %>
-                        <div class="card"></div>
-                          <div class="card-body"></div>
-                            <div class="col-4"></div>
-                              <h5><%= feedback[i].reviewtext %></h5>   
-                      <% } %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="card" style="width: 57rem;">
+            <h5>Other User Feedback:</h5>
+          <% for(var i = 0; i < feedback.length; i++) { %>
+            <div class="card"></div>
+              <div class="card-body"></div>
+                <div class="col-4"></div>
+                  <h5><%= feedback[i].reviewtext %></h5>   
+            <% } %>
           </div>
         </div>
       </div>
