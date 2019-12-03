@@ -172,12 +172,12 @@
       <form action="/profile">
         <input type="submit" name="Home" value="Home">
       </form>
-      <a class="active"href="#about">About</a>
       <form action="/tutor-finder">
         <input type="submit" name="Find a Tutor" value="Find a Tutor">
       </form>
-      <form action="/About">
-        <input type="submit" name="About" value="About">
+      <a class="active" href="/settings">Settings</a>
+      <form action="/login">
+        <input type="submit" name="LogOut" value="Logout">
       </form>
     </div>
     <div class ="container-fluid">
@@ -199,12 +199,6 @@
                 <span class="fa fa-star"></span>
                 <br>
               </div>
-              <br>
-              <br>
-              <form action="/feedback" method="GET">
-                <input type="number" name="studentID" style="visibility: hidden" value=<%= user.id %>>
-                <center><input class="btn btn-lg btn-dark" type="submit" value="Leave Feedback"></input></center>
-              </form>
             </div>
             <div class="col-4">
               <div class="row">
@@ -220,26 +214,29 @@
                       <% } else { %>
                         <div class="card-body">No Bio</div>
                       <% } %>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card mx-auto" style="width: 33rem;">
+          <div class="card mx-auto">
             <div class="card-header"><h5>Other User Feedback:</h5></div>
             <div class="card-body">
               <div class="row">
+            <% if (feedback) { %>
               <% for(var i = 0; i < feedback.length; i++) { %>
                 <div class="column">
                   <div class="card">
                     <div class="card-header">Review:</div>
                     <div class="card-body"><h5><%= feedback[i].reviewtext %></h5></div>
                     <div class="card-footer">Rating: <%= feedback[i].rating %></div>
-                  </div> 
-                </div>  
+                  </div>
+                </div>
               <% } %>
               </div>
+            <% } %>
             </div>
           </div>
         </div>
