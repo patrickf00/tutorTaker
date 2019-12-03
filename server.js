@@ -448,9 +448,9 @@ app.post('/feedback/submitted', function(req, res){
     return task.batch([
         task.any(query)
     ]);
+  })
   .then(data => {
     res.redirect('/userProfile')
-    });
   })
 });
 
