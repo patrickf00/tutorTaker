@@ -342,7 +342,7 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  var userId = req.query.studentChoice;
+  var userId = req.body.studentChoice;
   console.log(userId);
   // get all info of student
   var query1 = "SELECT * FROM users WHERE id = '"+ userId + "';";
