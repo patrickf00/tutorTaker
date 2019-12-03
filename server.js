@@ -94,7 +94,18 @@ app.get('/login', function(req, res){
   res.render('pages/LoginPage', {
     incorrectLogin: false
   });
+  req.session.destroy();
 });
+
+//will render settings page
+app.get('/settings', function(req, res){
+  res.render('pages/settings');
+});
+
+app.get('/editBio', function(req, res){
+  res.render('pages/editBio')
+});
+
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
@@ -145,19 +156,6 @@ app.post('/login/verify', function(req, res){
   })
 });
 
-//will render settings page
-app.get('/settings', function(req, res){
-  res.render('pages/settings');
-});
-
-app.get('/editProfile', function(req, res){
-  res.render('pages/editBio')
-});
-
-app.post('/editProfile/change', function(req, res){
-  res.redirect('/profile');
-});
-
 //will render profile page
 app.get('/profile', function(req, res){
   defaultUser = {
@@ -197,7 +195,7 @@ app.get('/profile', function(req, res){
     .catch(err => console.log(err));
 
     // gets all feed back for user
-    var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + req.session.uid + "';";
+    var query2 = "SELECT reviewText, rating FROM feedback WHERE userid= '" + req.session.uid + "';";
     db.query(query2, task => {
       return task.batch([
         task.any(query2)
@@ -207,8 +205,8 @@ app.get('/profile', function(req, res){
       // TODO: Add redirect for users who aren't logged in (session undefined)
       // Default user values to avoid crashing when someone isn't logged in
       console.log("Rendering for valid user");
-      //console.log(queryFeedback[0].reviewtext);
       if (queryFeedback){
+        console.log("feedback query:", queryFeedback[0]);
         res.render('pages/Profile',{
         user: userData,
         feedback: queryFeedback[0]
@@ -335,7 +333,6 @@ app.get('/tutor-finder', function(req, res){
 });
 app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.body.filterChoice;
-  console.log(ids);
   console.log("user location " + req.session.loc);
   if(filterChoice == 1){
     var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
@@ -368,10 +365,10 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  var username = req.body.user;
-
+  var userid = req.query.studentID;
+  console.log("User ID**" + userid);
   // get all info of student
-  var query1 = "SELECT * FROM users WHERE username = '"+ username + "';";
+  var query1 = "SELECT * FROM users WHERE id = '"+ userid + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
@@ -383,7 +380,7 @@ app.get('/userProfile', function(req, res){
   })
   .catch(err => console.log(err));
   // gets all feed back for user
-  var query2 = "SELECT reviewtext FROM feedback WHERE userid= '" + username + "';";
+  var query2 = "SELECT reviewtext, rating FROM feedback WHERE userid= '" + userid + "';";
   db.query(query2, task => {
     return task.batch([
       task.any(query2)
@@ -394,9 +391,10 @@ app.get('/userProfile', function(req, res){
     console.log("Rendering for valid user");
     //console.log(queryFeedback[0].reviewtext);
     if (queryFeedback){
+      console.log(queryFeedback);
       res.render('pages/userProfile',{
       user: userData,
-      feedback: queryFeedback[0]
+      feedback: queryFeedback
       })
     } else {
       res.render('pages/userProfile',{
@@ -414,6 +412,57 @@ app.get('/userProfile', function(req, res){
       })
   })
 });
+
+// feedback page
+app.get('/feedback', function(req, res){
+  // id of profile being viewed
+  var userid = req.query.studentID;
+  console.log("USER ID for FEEDBACK: " + userid);
+  var query = "SELECT * FROM users WHERE id = '" + userid + "';"
+  db.query(query, task => {
+      return task.batch([
+          task.any(query)
+      ]);
+  })
+  .then(data => {
+    console.log(data)
+    res.render('pages/feedback',{
+      user: data[0]
+    });
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.render('pages/feedback',{
+           user: ''
+      })
+  })
+});
+
+// feedback submited
+app.post('/feedback/submitted', function(req, res){
+  // id of profile being viewed
+  var userid = req.body.studentID;
+  var feedback = req.body.feedback;
+  var rating = req.body.rating;
+  console.log("feedback:", feedback, "rating:", rating, "user id:", userid);
+  var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
+  db.query(query, task => {
+    return task.batch([
+        task.any(query)
+    ]);
+  })
+  //test
+  .then(data => {
+    res.redirect('/profile')
+  })
+  .catch(err => {
+      // display error message in case an error
+      console.log('error', err);
+      res.redirect('/profile')
+  })
+});
+
 
 // Start server
 app.listen(PORT);

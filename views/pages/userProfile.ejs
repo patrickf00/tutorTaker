@@ -157,7 +157,6 @@
           <div class="row">
             <div class="col-5">
               <div class="card mx-auto" style="width: 23rem;">
-                <img class="card-img-top" src="blank.png" alt="Profile Picture">
                 <p><center><%= user.schoollevel %></center></p>
                 <p><center>Subjects: <%= user.subjects %></center></p>
                 <p><center>Average Rating: <%= user.rating %></center></p>
@@ -168,6 +167,12 @@
                 <span class="fa fa-star"></span>
                 <br>
               </div>
+              <br>
+              <br>
+              <form action="/feedback" method="GET">
+                <input type="number" name="studentID" style="visibility: hidden" value=<%= user.id %>>
+                <center><input class="btn btn-lg btn-dark" type="submit" value="Leave Feedback"></input></center>
+              </form>
             </div>
             <div class="col-4">
               <div class="row">
@@ -204,25 +209,11 @@
                   <div class="card-body">
                     <div class="myBox">
                       <h5>Other User Feedback:</h5>
-                      <% if (feedback) { %>
-                        <% for(var i = 0; i < feedback.length; i++) { %>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-4">
-                                <div class="card mx-auto" style="width: 57rem;">
-                                  <div class="card-body">
-                                    <div class="feedback">
-                                      <p><%= feedback[i].reviewtext %></p>
-                                    </div>
-                                   </div>
-                                 </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        <% } %>
+                      <% for(var i = 0; i < feedback.length; i++) { %>
+                        <h5><%= feedback[i].reviewtext %></h5>       
                       <% } %>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>

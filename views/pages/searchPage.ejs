@@ -20,26 +20,16 @@
             <option value="2">Rating</option>
             <option value="3">Major</option>
           </select>
-
         </form>
-        <table style="width: 100%;color:#C7BA7C;font-family:georgia"> 
-          <tr>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Rating</th>
-            <th>Subject</th>
-          </tr>
-        <% for (var i = 0;i < tutors.length; i++) { %>
-          <% let ids = tutors[i].id%>
-          
-          <tr>
-            <td name="studentChoice" id="studentChoice" value=<%= tutors[i].id %>><form action="/userProfile"><input type="submit" name="user" style="background:none;border:0;color:#C7BA7C" value=<%= tutors[i].username %>></input></form></td>
-            <td><%= tutors[i].firstname + " " +  tutors[i].lastname%></td>
-            <td><%= tutors[i].rating %></td>
-            <td ><%= tutors[i].subjects %></td>
-          </tr>
-        <% } %>
-        </table>    
+        <form action="/userProfile">
+          <select name="studentID" class="custom-select" id="tutorDropDown" onchange="this.form.submit()">
+            <option>Select a Tutor</option>
+          <% for (var i = 0;i < tutors.length; i++) { %>
+            <% console.log(tutors[i].id) %>
+            <option value=<%= tutors[i].id %>><%= "Name: " + tutors[i].firstname + " " +  tutors[i].lastname + "\t" + "Rating: " + tutors[i].rating + "\t" + "Major: " + tutors[i].subjects%></option>  
+          <% } %>  
+          </select>
+        </form>
       </div>
     </div>
   </body>
