@@ -165,6 +165,11 @@
         text-align: center;
         background-color: #f1f1f1;
       }
+      .scroll-box {
+        overflow-y: scroll;
+        height: 100px;
+        padding: 1rem
+      }
     </style>
   </head>
   <body style="background-color:#000000">
@@ -231,7 +236,7 @@
                 <div class="column">
                   <div class="card">
                     <div class="card-header">Review:</div>
-                    <div class="card-body"><h5><%= feedback[i].reviewtext %></h5></div>
+                    <div class="card-body"><div class="scroll-box"><%= feedback[i].reviewtext %></div></div>
                     <div class="card-footer">Rating: <%= feedback[i].rating %></div>
                   </div>
                 </div>
