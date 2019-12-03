@@ -205,13 +205,15 @@
           <div class="card" style="width: 57rem;">
             <div class="card-header"><h5>Other User Feedback:</h5></div>
               <div class="row">
-              <% for(var i = 0; i < feedback.length; i++) { %>
-                <div class="card">
-                  <div class="card-header">Review:</div>
-                  <div class="card-body"><h5><%= feedback[i].reviewtext %></h5></div>
-                  <div class="card-footer">Rating:<%= feedback[i].reviewtext %></div>
-                </div>   
-                <% } %>
+                <div class="col-4">
+                <% for(var i = 0; i < feedback.length; i++) { %>
+                  <div class="card">
+                    <div class="card-header">Review:</div>
+                    <div class="card-body"><h5><%= feedback[i].reviewtext %></h5></div>
+                    <div class="card-footer">Rating:<%= feedback[i].reviewtext %></div>
+                  </div>   
+                  <% } %>
+                </div>
               </div>
           </div>
         </div>
