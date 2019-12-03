@@ -346,10 +346,10 @@ app.get('/tutor-finder/filter', function(req, res){
 // will render a profile of another user
 app.get('/userProfile', function(req, res){
   // gets user id of selected student
-  var userId = req.body.studentChoice;
-  console.log(userId);
+  var userId = req.body.user;
+  console.log(user);
   // get all info of student
-  var query1 = "SELECT * FROM users WHERE id = '"+ userId + "';";
+  var query1 = "SELECT * FROM users WHERE username = '"+ user + "';";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
