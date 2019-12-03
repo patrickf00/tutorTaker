@@ -367,11 +367,11 @@ app.get('/tutor-finder/filter', function(req, res){
   var filterChoice = req.body.filterChoice;
   console.log("user location " + req.session.loc);
   if(filterChoice == 1){
-    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND id NOT = '" + req.session.uid + "' AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND id != '" + req.session.uid + "' AND location = '" + req.session.loc + "' ORDER BY lastname ASC;";
   } else if(filterChoice == 2) {
-    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND id NOT = '" + req.session.uid + "'  AND location = '" + req.session.loc + "' ORDER BY rating DESC;"
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND id != '" + req.session.uid + "'  AND location = '" + req.session.loc + "' ORDER BY rating DESC;"
   } else {
-    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND id NOT = '" + req.session.uid + "'  AND location = '" + req.session.loc + "' ORDER BY subjects ASC;"
+    var query1 = "SELECT id, firstname, lastname, rating, subjects, username FROM users WHERE tutor = true AND id != '" + req.session.uid + "'  AND location = '" + req.session.loc + "' ORDER BY subjects ASC;"
   }
 
   db.query(query1, task => {
