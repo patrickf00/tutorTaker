@@ -30,8 +30,9 @@
           </tr>
         <% for (var i = 0;i < tutors.length; i++) { %>
           <% console.log("ID: " + tutors[i].id)%>
+          <%= var name = tutors[i].firstname + " " + tutors[i].lastname; %>
           <tr>
-            <td name="studentChoice" id="studentChoice" value=<%= tutors[i].id %>><form action="/userProfile"><input type="submit" name="user" style="background:none;border:0;color:#C7BA7C" value=<%= tutors[i].firstname + " " + tutors[i].lastname %>></input></form></td>
+            <td name="studentChoice" id="studentChoice" value=<%= tutors[i].id %>><form action="/userProfile"><input type="submit" name="user" style="background:none;border:0;color:#C7BA7C" value=<%= name %>></input></form></td>
             <td><%= tutors[i].rating %></td>
             <td ><%= tutors[i].subjects %></td>
           </tr>
