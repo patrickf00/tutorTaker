@@ -2,12 +2,16 @@
 
   Load Components!
 
-  Express      - A Node.js Framework
-  Body-Parser  - A tool to help use parse the data in a post request
-  Pg-Promise   - A database tool to help use connect to our PostgreSQL database
+  Express         - A Node.js Framework
+  Express-session - An addition to Express to deal with user sessions
+  Body-Parser     - A tool to help parse the data in a post request
+  Cookie-Parser   - A tool to help parse cookie data
+  Pg-Promise      - A database tool to help use connect to our PostgreSQL database
+  Chatkit         - A chat API
 
 ***********************/
 
+// Set port & db config variables (from env or defaults)
 const PORT = process.env.PORT || 3000; // Use either the port assigned by Heroku, or 3000
 const DB = process.env.DATABASE_URL || {
 	host: 'localhost',
@@ -17,37 +21,36 @@ const DB = process.env.DATABASE_URL || {
 	password: 'password'
 }; // Use either database URL assigned by Heroku, or defaults
 
+// Dependencies
 const express = require('express'); // Add the express framework has been added
 const session = require('express-session');
-const Chatkit = require('@pusher/chatkit-server');
+const bodyParser = require('body-parser'); // Add the body-parser tool has been added
 const cookieParser = require('cookie-parser')
-var app = express();
+const pgp = require('pg-promise')();
+const Chatkit = require('@pusher/chatkit-server');
 
+// Chatkit initialization
 const chatkit = new Chatkit.default({
   instanceLocator: "v1:us1:72542696-9aeb-4905-b562-282191c1d894",
   key: "64bdf710-c3dc-467a-93d7-93b3d80ee827:MyNNpPQs0Xw86nvuNqWvnyyI/L4ICIShSqsgVQmDjnk="
 });
 
-const bodyParser = require('body-parser'); // Add the body-parser tool has been added
+// Middleware & path names
+var app = express();
 app.use(session({
   secret: 'yeet',
   resave: false,
   saveUninitialized: true
 })); // Add the session handler
-app.use(bodyParser.json());              // Add support for JSON encoded bodies
+app.use(bodyParser.json()); // Add support for JSON encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Add support for URL encoded bodies
 app.use(cookieParser()); // Add cookie parser tool
-app.set('view engine', 'ejs');
-
-
-//Create Database Connection
-const pgp = require('pg-promise')();
 app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
-const dbConfig = DB;
+app.set('view engine', 'ejs'); // Set the view engine to ejs
 
-//let db = pgp(dbConfig);
-let db = pgp(dbConfig);
-// set the view engine to ejs
+
+// Create Database Connection
+let db = pgp(DB);
 
 // Create a match between a student & tutor - add to database & create chat room
 // Unimplemented
@@ -76,8 +79,6 @@ function createMatch(studentID, tutorID){
   .catch(err => console.log(err));
 }
 
-app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
-
 // will render index page (renders as login)
 app.get('/', function(req, res){
 	res.redirect('/login')
@@ -87,6 +88,7 @@ app.get('/', function(req, res){
 app.get('/About', function(req, res){
   res.render('pages/About');
 });
+
 //will render base login page
 app.get('/login', function(req, res){
   res.render('pages/LoginPage');
@@ -137,6 +139,7 @@ app.post('/login/verify', function(req, res){
   })
 });
 
+//will render profile page
 app.get('/profile', function(req, res){
   defaultUser = {
     id: '',
@@ -283,7 +286,7 @@ app.post('/regPage/valid', function(req, res){
   })
 });
 
-/* will render the search page*/
+// will render the search page
 app.get('/tutor-finder', function(req, res){
   var query1 = 'SELECT id, firstname, lastname, rating, subjects, location FROM users ORDER BY lastname ASC;';
   db.query(query1, task => {
@@ -336,6 +339,6 @@ app.get('/tutor-finder/filter', function(req, res){
   })
 });
 
-
+// Start server
 app.listen(PORT);
 console.log(PORT + ' is the magic port');
