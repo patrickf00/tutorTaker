@@ -211,20 +211,8 @@
                       <h5>Other User Feedback:</h5>
                     <% if (feedback) { %>
                       <% for(var i = 0; i < feedback.length; i++) { %>
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-4">
-                              <div class="card mx-auto" style="width: 57rem;">
-                                <div class="card-body">
-                                  <div class="feedback">
-                                    <p><%= feedback[i].reviewtext %></p>
-                                  </div>
-                                 </div>
-                               </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <h5><% feedback.reviewtext[i] %></h5>
+                              
                       <% } %>
                     <% } %>
                     </div>
