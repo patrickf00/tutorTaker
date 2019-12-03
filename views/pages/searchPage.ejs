@@ -31,7 +31,7 @@
           </tr>
         <% for (var i = 0;i < tutors.length; i++) { %>
           <% let ids = tutors[i].id%>
-          <!--<%# console.log("ID: " + tutors[i].id)%>-->
+          
           <tr>
             <td name="studentChoice" id="studentChoice" value=<%= tutors[i].id %>><form action="/userProfile"><input type="submit" name="user" style="background:none;border:0;color:#C7BA7C" value=<%= tutors[i].username %>></input></form></td>
             <td><%= tutors[i].firstname + " " +  tutors[i].lastname%></td>
