@@ -30,7 +30,7 @@
           </tr>
         <% for (var i = 0;i < tutors.length; i++) { %>
           <tr>
-            <td value=<%= tutors[i].id %>><a class ="link"href="https://www.w3schools.com/html/"><%= tutors[i].firstname + " " + tutors[i].lastname  %></a></td>
+            <td name="studentChoice" value=<%= tutors[i].id %>><form action="/userProfile"><input type="submit" name="Test"></input></form></td> <!-- <%= tutors[i].firstname + " " + tutors[i].lastname  %> -->
             <td><%= tutors[i].rating %></td>
             <td ><%= tutors[i].subjects %></td>
           </tr>
