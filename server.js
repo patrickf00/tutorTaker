@@ -137,14 +137,11 @@ app.post('/editBio/valid', function(req, res){
   var update = "UPDATE Users SET ";
   var element;
   for(element in changes){
-    if(changes[element] != ""){
-      if(element == "tutor" || element == "student"){
-        if((req.body.tutorStatus != "None") != isTutor){
-          isTutor = !isTutor;
-        }else if((req.body.studentStatus != "None") != isStudent){
-          isStudent = !isStudent;
-        }
-      }
+    update += element + "='" + changes[element];
+    if(element != "bio"){
+      update += "', ";
+    }
+  }
       update += element + "='" + changes[element] + "', ";
     }
   }
