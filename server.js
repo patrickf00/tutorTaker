@@ -343,7 +343,7 @@ app.post('/regPage/valid', function(req, res){
 
 // will render the search page
 app.get('/tutor-finder', function(req, res){
-  var query1 = "SELECT id, firstname, lastname, rating, subjects, location, username FROM users WHERE tutor = true AND location = '" + req.session.loc + "'  ORDER BY lastname ASC;";
+  var query1 = "SELECT id, firstname, lastname, rating, subjects, location, username FROM users WHERE tutor = true AND id != '" + req.session.uid + "' AND location = '" + req.session.loc + "'  ORDER BY lastname ASC;";
   db.query(query1, task => {
       return task.batch([
           task.any(query1)
