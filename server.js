@@ -92,8 +92,8 @@ app.get('/About', function(req, res){
 //will render base login page
 app.get('/login', function(req, res){
   res.render('pages/LoginPage', {
-    incorrectLogin: false;
-    redirectToLogin: false;
+    incorrectLogin: false,
+    redirectToLogin: false
   });
   req.session.destroy();
 });
