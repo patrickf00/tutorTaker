@@ -22,7 +22,8 @@ CREATE TABLE Users (
   location varchar(255),
   schoolLevel varchar(255),
   subjects varchar(255),
-  price decimal
+  price decimal,
+  bio text
 );
 
 -- Matches table - fulfills the function of the vertices vector
@@ -36,9 +37,7 @@ CREATE TABLE Matches (
 CREATE TABLE Messages (
   messageID serial PRIMARY KEY NOT NULL,
   recipID int REFERENCES Users(id),
-  senderID int,
-  body text,
-  date timestamp
+  senderID int
 );
 
 -- Feedback table - stores feedback
@@ -52,24 +51,9 @@ CREATE TABLE Feedback (
 );
 
 ----
--- Views for simplicity
-----
-
--- User messages view (groups messages by recipID)
--- TODO: add functionality for grouping messages by conversation
---  (entails matching messages by sender and recipient and ordering by date)
-CREATE VIEW UserMessages AS
-  SELECT Users.id, Messages.* FROM Users RIGHT JOIN Messages ON Users.id=Messages.recipID;
-
--- User feedback view (groups feedback by userID)
-CREATE VIEW UserFeedback AS
-  SELECT Users.id, Feedback.* FROM Users RIGHT JOIN Feedback ON Users.id=Feedback.userID;
-
-----
 -- Data retrieval - for NodeJS integration
 -- NJIx is a standin for the appropriate NodeJS variable - replace this in the
 --  NodeJS query string with the variable you want to use, from the HTTP request
---  (sanitize first)
 ----
 
 -- Add user
