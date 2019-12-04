@@ -151,20 +151,18 @@ app.post('/editBio/valid', function(req, res){
   update = update.substr(0, update.length - 3);
   update += "' WHERE id='" + req.session.uid + "';";
 
-  console.log(update);
-  res.redirect('/profile');
-  // db.query(update, task => {
-  //   task.batch(
-  //     task.any(update)
-  //   );
-  // })
-  // .then(data => {
-  //   res.redirect('/profile');
-  // })
-  //  .catch(err => {
-  //     console.log('error', err);
-  //     res.render('pages/editBio')
-  //     })
+  db.query(update, task => {
+    task.batch(
+      task.any(update)
+    );
+  })
+  .then(data => {
+    res.redirect('/profile');
+  })
+  .catch(err => {
+      console.log('error', err);
+      res.render('pages/editBio')
+      })
 });
 
 
