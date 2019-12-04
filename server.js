@@ -587,6 +587,19 @@ app.post('/feedback/submitted', function(req, res){
   console.log("feedback:", feedback, "rating:", rating, "user id:", userid);
   var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
   var avgRate = "INSERT INTO users(rating) SELECT AVG(rating) FROM feedback WHERE users.id = '" + userid + "';";
+  db.query(avgRate, task => {
+    return task.batch([
+      task.any(avgRate)
+    ]);
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    // display error message in case an error
+    console.log('error', err);
+    res.redirect('/profile')
+  })
   db.query(query, task => {
     return task.batch([
         task.any(query)
