@@ -584,7 +584,7 @@ app.post('/feedback/submitted', function(req, res){
   var rating = req.body.rating;
   console.log("feedback:", feedback, "rating:", rating, "user id:", userID);
   var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userID + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
-  var avgRate = "UPDATE users SET users.rating = (SELECT AVG(feedback.rating) FROM feedback INNER JOIN users on feedback.userid=users.id) WHERE users.id = '" + userID + "';";
+  var avgRate = "UPDATE users SET rating = (SELECT AVG(feedback.rating) FROM feedback INNER JOIN users on feedback.userid=users.id) WHERE users.id = '" + userID + "';";
   db.query(query, task => {
     return task.batch([
         task.any(query)
