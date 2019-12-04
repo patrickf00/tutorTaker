@@ -20,18 +20,50 @@
       position: absolute;
       background-color: none;
       width: 100%;
-      z-index: 1; 
+      z-index: 1;
       color: #C7BA7C;
       padding: 12px 16px;
       text-decoration: none;
-    } 
+    }
+    .topnav{
+      background-color: #C7BA7C;
+      overflow:hidden;
+    }
+    .topnav a{
+      float:left;
+      color:#000000;
+      text-align: center;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    .topnav a:hover {
+      background-color: #CFbf5C;
+      color: black;
+    }
+    .topnav input{
+      float:left;
+      color:#000000;
+      background-color: #C7BA7C;
+      display: inline-block;
+      text-align: center;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-size: 17px;
+      border: none;
+    }
+    .topnav input:hover {
+      background-color: #CFbf5C;
+      color: black;
+    }
 
   </style>
 </head>
   <body style="background-color:#000000">
     <div class="topnav">
-      <a class="active"href="#Profile">Profile</a>
-      <a class="active"href="#about">About</a>
+      <form action="/Profile">
+        <input type="submit" name="Home" value="Home">
+      </form>
     </div>
     <div class="container-fluid">
       <br>
@@ -47,13 +79,13 @@
           </select>
         </form>
         <form action="/userProfile">
-          <select name="studentID" id="tutorDropDown" class="c-drop"onchange="this.form.submit()"> 
+          <select name="studentID" id="tutorDropDown" class="c-drop"onchange="this.form.submit()">
               <option class="c-drop-cont">Select a Tutor</option>
             <% for (var i = 0;i < tutors.length; i++) { %>
               <% console.log(tutors[i].id) %>
-              <option class="c-drop-cont" value=<%= tutors[i].id %>><%= "Name: " + tutors[i].firstname + " " +  tutors[i].lastname + "\t" + "Rating: " + tutors[i].rating + "\t" + "Major: " + tutors[i].subjects%></option>  
-            <% } %> 
-            </div> 
+              <option class="c-drop-cont" value=<%= tutors[i].id %>><%= "Name: " + tutors[i].firstname + " " +  tutors[i].lastname + "\t" + "Rating: " + tutors[i].rating + "\t" + "Major: " + tutors[i].subjects%></option>
+            <% } %>
+            </div>
           </select>
         </form>
       </div>
