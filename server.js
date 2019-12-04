@@ -135,7 +135,10 @@ app.post('/editBio/valid', function(req, res){
   .then(data => {
     res.redirect('/profile');
   })
-  .catch(err => console.log(err));
+   .catch(err => {
+      console.log('error', err);
+      res.render('pages/editBio')
+      })
 });
 
 
