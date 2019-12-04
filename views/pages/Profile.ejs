@@ -195,8 +195,11 @@
             <div class="col-5">
               <div class="card mx-auto" style="width: 23rem;">
                 <p><center><%= user.schoollevel %></center></p>
-                <p><center>Subjects: <%= user.subjects %></center></p>
+                <% if(user.tutor == false){ %>
+                <p><center>Looking for Tutoring In: <%= user.subjects %></center></p>
+                <% } %>
                 <% if(user.tutor == true){ %>
+                <p><center>Subjects Tutoring In: <%= user.subjects %></center></p>
                 <p><center>Average Rating: <%= user.rating %></center></p>
                 <p><center>Price (Hourly): <%= user.price %></center></p>
                 <% } %>
