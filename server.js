@@ -132,6 +132,7 @@ app.post('/editBio/valid', function(req, res){
       "tutor": isTutor,
       "student": isStudent,
       "location": req.body.school,
+      "subject": req.body.subject,
       "bio": req.body.bio
   };
   var update = "UPDATE Users SET ";
