@@ -108,38 +108,63 @@ app.get('/editBio', function(req, res){
 });
 
 app.post('/editBio/valid', function(req, res){
+
+  var isTutor = false;
+  var isStudent = false;
+  var statusQuery = "SELECT tutor, student FROM Users WHERE id='" + req.session.uid + "';";
+  db.query(statusQuery, task => {
+    return task.batch(
+      task.any(statusQuery)
+    );
+  })
+  .then(data => {
+    isTutor = data.tutor;
+    isStudent = data.student;
+    console.log(data);
+  })
+  .catch(err => console.log(err));
+
   console.log("Body:", req.body);
-  changes = {
+  var changes = {
       "lastName": req.body.lName,
       "firstName": req.body.fName,
       "pronouns": req.body.pronouns,
-      "tutor": (req.body.tutorStatus != "None"),
-      "student": (req.body.studentStatus != "None"),
+      "tutor": isTutor,
+      "student": isStudent,
       "location": req.body.school,
       "bio": req.body.bio
   };
   var update = "UPDATE Users SET ";
   var element;
   for(element in changes){
-    update += element + "='" + changes[element];
-    if(element != "bio"){
-      update += "', ";
+    if(changes[element] != ""){
+      if(element == "tutor" || element == "student"){
+        if((req.body.tutorStatus != "None") != isTutor){
+          isTutor = !isTutor;
+        }else if((req.body.studentStatus != "None") != isStudent){
+          isStudent = !isStudent;
+        }
+      }
+      update += element + "='" + changes[element] + "', ";
     }
   }
+  update = update.substr(0, update.length - 3);
   update += "' WHERE id='" + req.session.uid + "';";
 
-  db.query(update, task => {
-    task.batch(
-      task.any(update)
-    );
-  })
-  .then(data => {
-    res.redirect('/profile');
-  })
-   .catch(err => {
-      console.log('error', err);
-      res.render('pages/editBio')
-      })
+  console.log(update);
+  res.redirect('/profile');
+  // db.query(update, task => {
+  //   task.batch(
+  //     task.any(update)
+  //   );
+  // })
+  // .then(data => {
+  //   res.redirect('/profile');
+  // })
+  //  .catch(err => {
+  //     console.log('error', err);
+  //     res.render('pages/editBio')
+  //     })
 });
 
 
