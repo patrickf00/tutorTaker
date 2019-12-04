@@ -196,12 +196,15 @@
               <div class="card mx-auto" style="width: 23rem;">
                 <p><center><%= user.schoollevel %></center></p>
                 <p><center>Subjects: <%= user.subjects %></center></p>
+                <% if(user.tutor == true){ %>
                 <p><center>Average Rating: <%= user.rating %></center></p>
-                <center><span class="fa fa-star checked"></span>
+                <p><center>Price (Hourly): <%= user.price %></center></p>
+                <% } %>
+                <!-- <center><span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span> -->
                 <br>
                 <br>
               </div>
