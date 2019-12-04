@@ -561,6 +561,7 @@ app.post('/feedback/submitted', function(req, res){
   var rating = req.body.rating;
   console.log("feedback:", feedback, "rating:", rating, "user id:", userid);
   var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
+  var avgRate = "INSERT INTO users(rating) SELECT AVG(rating) FROM feedback WHERE users.id = '" + userid + "';";
   db.query(query, task => {
     return task.batch([
         task.any(query)
