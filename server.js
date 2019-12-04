@@ -139,6 +139,17 @@ app.post('/editBio/valid', function(req, res){
 });
 
 
+//will render base registration page
+app.post('/regPage', function(req, res){
+  res.render('pages/regPage', {
+    emailAlreadyInDatabase: false,
+    usernameAlreadyInDatabase: false,
+    redirectToLogin: false,
+    redirectFromLogin: false,
+    usernameAndEmailAlreadyInDatabase: false
+  });
+});
+
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
   var username1 = req.body.verifyEmail;
@@ -152,8 +163,11 @@ app.post('/login/verify', function(req, res){
   .then(data => {
     if(!data[0]){ // User not found in DB
       res.render('pages/regPage', {
-        userAlreadyInInDatabase: false,
-        redirectFromLogin: true
+        usernameAlreadyInDatabase: false,
+        emailAlreadyInDatabase: false,
+        redirectToLogin: false,
+        redirectFromLogin: true,
+        usernameAndEmailAlreadyInDatabase: false
       });
     }else if(req.body.verifyPwd != data[0].pwdhash){ // Username doesn't match password
       // Placeholder for now
@@ -262,13 +276,7 @@ app.get('/profile', function(req, res){
   }
 });
 
-//will render base registration page
-app.post('/regPage', function(req, res){
-  res.render('pages/regPage', {
-    userAlreadyInDatabase: false,
-    redirectFromLogin: false
-  });
-});
+
 
 //will enter someones data to the db
 app.post('/regPage/valid', function(req, res){
@@ -313,32 +321,101 @@ app.post('/regPage/valid', function(req, res){
   console.log(subjectStatus);
   console.log(email);
   console.log(password);
-  var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "'); " +
-    "SELECT id FROM Users WHERE email='" + email + "';";
-  db.query(sql, task => {
+  //set up for where second db qeary goes
+  var usernameQuery = "SELECT lastName FROM users WHERE username= '" + username + "';";//query to check if that username is already in the database
+  var emailQuery = "SELECT lastName FROM users WHERE email= '" + email + "';"; //query to check if email is already in the db
+  db.task('get-everything', task => {
     return task.batch([
-        task.any(sql2)
+        task.any(emailQuery),
+        task.any(usernameQuery)
     ]);
   })
-  .then(data => {
-    uid = data[0]['id'].toString();
-    console.log("User ID:", uid, "for", fname, lname);
-    chatkit.createUser({
-      id: uid,
-      name: fname + " " + lname
-    })
-    .then(() => console.log("Chatkit user created successfully"))
-    .catch((err) => console.log(err));
-    res.redirect('/login');
-  })
-  .catch(err => {
-      // display error message in case an error
-      console.log('error', err);
+  .then(dataCheck => { //renamed data to dataCheck bc did not want conflicting variables
+    console.log(dataCheck[0]);
+    console.log(dataCheck[1]);
+    if((dataCheck[0]== '') && (dataCheck[1]== '' ) ){ // User not found in DB
+      console.log('Username and email not in db');
       res.render('pages/regPage', {
-        userAlreadyInDatabase: false,
-        redirectFromLogin: false
+        usernameAlreadyInDatabase: false,
+        emailAlreadyInDatabase: false,
+        redirectFromLogin: false,
+        redirectToLogin: true,
+        usernameAndEmailAlreadyInDatabase: false
       });
+      var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "'); " +
+        "SELECT id FROM Users WHERE email='" + email + "';";
+      db.query(sql, task => {
+        return task.batch([
+            task.any(sql)
+        ]);
+      })
+      .then(data => {//i believe this is where the bug starts
+        uid = data[0]['id'].toString();
+        console.log("User ID:", uid, "for", fname, lname);
+        chatkit.createUser({
+          id: uid,
+          name: fname + " " + lname
+        })
+        .then(() => console.log("Chatkit user created successfully"))
+        .catch((err) => console.log(err));
+        res.redirect('pages/LoginPage');
+      })
+      .catch(err => {
+          // display error message in case an error
+          console.log('error', err);
+          res.render('pages/regPage', {
+            usernameAlreadyInDatabase: false,
+            emailAlreadyInDatabase:false,
+            redirectToLogin: false,
+            redirectFromLogin: false,
+            usernameAndEmailAlreadyInDatabase: false
+          });
+      })
+    } //end of if statement
+    else if((dataCheck[0]) && (dataCheck[1])){ //if both are already in db
+      console.log('Username and email are already in database');
+      res.render('pages/regPage',{
+        usernameAlreadyInDatabase: false,
+        emailAlreadyInDatabase:false,
+        redirectToLogin: false,
+        redirectFromLogin: false,
+        usernameAndEmailAlreadyInDatabase: true
+  		})
+    }
+    else if(dataCheck[0]){ //if email already in db
+      console.log('Email are already in database');
+      res.render('pages/regPage',{
+        usernameAlreadyInDatabase: false,
+        emailAlreadyInDatabase:true,
+        redirectToLogin: false,
+        redirectFromLogin: false,
+        usernameAndEmailAlreadyInDatabase: false
+  		})
+    }
+    else if(dataCheck[1]){ //if email is already in db
+      console.log('Username already in database');
+      res.render('pages/regPage',{
+        usernameAlreadyInDatabase: true,
+        emailAlreadyInDatabase:false,
+        redirectToLogin: false,
+        redirectFromLogin: false,
+        usernameAndEmailAlreadyInDatabase: false
+  		})
+    }
   })
+.catch(error => {
+    // display error message in case an error
+    console.log('error', err);
+    res.render('pages/regPage',{
+      usernameAlreadyInDatabase: false,
+      emailAlreadyInDatabase:false,
+      redirectToLogin: false,
+      redirectFromLogin: false,
+      usernameAndEmailAlreadyInDatabase: false
+		})
+  });
+
+  /////////////////////////////////////////////////
 });
 
 // will render the search page

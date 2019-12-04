@@ -46,11 +46,20 @@
       </style>
       </head>
       <body style="background-color:#000000">
-        <% if(userAlreadyInDatabase) { %>
+        <% if(usernameAlreadyInDatabase) { %>
           <script> alert("Username already registered - please choose a new one") </script>
+        <% } %>
+        <% if(emailAlreadyInDatabase) { %>
+          <script> alert("Email already registered - please choose a new one") </script>
         <% } %>
         <% if(redirectFromLogin) { %>
           <script> alert("User not found, please register") </script>
+        <% } %>
+        <% if(redirectToLogin) { %>
+          <script> alert("You have been registered - Please Login") </script>
+        <% } %>
+        <% if(usernameAndEmailAlreadyInDatabase) { %>
+          <script> alert("Username and Email are already registered - please choose a new one") </script>
         <% } %>
         <div class="topnav" >
           <form action="/" >
