@@ -259,7 +259,7 @@ app.get('/profile', function(req, res){
         console.log("feedback query:", queryFeedback[0]);
         res.render('pages/Profile',{
         user: userData,
-        feedback: queryFeedback[0]
+        feedback: queryFeedback
         })
       } else {
         res.render('pages/Profile',{
