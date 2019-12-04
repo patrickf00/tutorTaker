@@ -47,6 +47,9 @@
         <% if(incorrectLogin) { %>
           <script> alert("Incorrect password; please try again"); </script>
         <% } %>
+        <% if(redirectToLogin) { %>
+          <script> alert("You have been registered - Please Login") </script>
+        <% } %>
         <div class="topnav">
           <form action="/">
             <input type="submit" name="home" value="Home">

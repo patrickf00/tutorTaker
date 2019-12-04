@@ -338,12 +338,13 @@ app.post('/regPage/valid', function(req, res){
     console.log(dataCheck[1]);
     if((dataCheck[0]== '') && (dataCheck[1]== '' ) ){ // User not found in DB
       console.log('Username and email not in db');
-      res.render('pages/regPage', {
-        usernameAlreadyInDatabase: false,
-        emailAlreadyInDatabase: false,
-        redirectFromLogin: false,
-        redirectToLogin: true,
-        usernameAndEmailAlreadyInDatabase: false
+      res.render('pages/LoginPage', {
+        // usernameAlreadyInDatabase: false,
+        // emailAlreadyInDatabase: false,
+        // redirectFromLogin: false,
+        incorrectLogin: false,
+        redirectToLogin: true
+        // usernameAndEmailAlreadyInDatabase: false
       });
       var sql = "INSERT INTO Users (lastName, firstName, pronouns, username,pwdHash,tutor,student,rating,location,schoolLevel,subjects,price,email) VALUES ('" + lname + "','" + fname + "','"+ pronouns + "','" + username + "','" + password + "','" + tutorStatus+ "','" + studentStatus + "'," + rating + ",'" + school + "','" + yearStatus+ "','" + subjectStatus+ "', " + price + ",'" + email + "'); " +
         "SELECT id FROM Users WHERE email='" + email + "';";
@@ -361,7 +362,7 @@ app.post('/regPage/valid', function(req, res){
         })
         .then(() => console.log("Chatkit user created successfully"))
         .catch((err) => console.log(err));
-        res.redirect('pages/LoginPage');
+        //res.redirect('pages/LoginPage');
       })
       .catch(err => {
           // display error message in case an error
@@ -369,7 +370,7 @@ app.post('/regPage/valid', function(req, res){
           res.render('pages/regPage', {
             usernameAlreadyInDatabase: false,
             emailAlreadyInDatabase:false,
-            redirectToLogin: false,
+            //redirectToLogin: false,
             redirectFromLogin: false,
             usernameAndEmailAlreadyInDatabase: false
           });
@@ -380,7 +381,7 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage',{
         usernameAlreadyInDatabase: false,
         emailAlreadyInDatabase:false,
-        redirectToLogin: false,
+        //redirectToLogin: false,
         redirectFromLogin: false,
         usernameAndEmailAlreadyInDatabase: true
   		})
@@ -390,7 +391,7 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage',{
         usernameAlreadyInDatabase: false,
         emailAlreadyInDatabase:true,
-        redirectToLogin: false,
+        //redirectToLogin: false,
         redirectFromLogin: false,
         usernameAndEmailAlreadyInDatabase: false
   		})
@@ -400,7 +401,7 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage',{
         usernameAlreadyInDatabase: true,
         emailAlreadyInDatabase:false,
-        redirectToLogin: false,
+        //redirectToLogin: false,
         redirectFromLogin: false,
         usernameAndEmailAlreadyInDatabase: false
   		})
@@ -412,7 +413,7 @@ app.post('/regPage/valid', function(req, res){
     res.render('pages/regPage',{
       usernameAlreadyInDatabase: false,
       emailAlreadyInDatabase:false,
-      redirectToLogin: false,
+      //redirectToLogin: false,
       redirectFromLogin: false,
       usernameAndEmailAlreadyInDatabase: false
 		})

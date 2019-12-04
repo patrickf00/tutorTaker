@@ -55,9 +55,6 @@
         <% if(redirectFromLogin) { %>
           <script> alert("User not found, please register") </script>
         <% } %>
-        <% if(redirectToLogin) { %>
-          <script> alert("You have been registered - Please Login") </script>
-        <% } %>
         <% if(usernameAndEmailAlreadyInDatabase) { %>
           <script> alert("Username and Email are already registered - please choose a new one") </script>
         <% } %>
