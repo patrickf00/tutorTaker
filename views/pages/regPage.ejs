@@ -121,29 +121,29 @@
                   <label class="form-check-label" for="tutorCheck">Tutor</label>
                 </div>
                 <span class="error"><small id="typeStatus" style="color:red"></small></span>
+                <div class="form-group" id="tutorForm">
+                  <label for="validationSchool" class="h6">What Year Are You?</label>
+                  <select name="yearStatus" class="form-control" id="yearStatus">
+                    <option value="">Select a Year</option>
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                  </select>
+                  <span class="error"><small id="yearError" style="color:red"></small></span>
+                </div>
+                <div class="form-group">
+                  <label for="validationSubject" class="h6">What Subject?</label>
+                  <select name="subjectStatus" class="form-control" id="subjectStatus">
+                    <option value="">Select a Subject</option>
+                    <option value="Math">Math</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="English">English</option>
+                  </select>
+                  <span class="error"><small id="subjectError" style="color:red"></small></span>
+                </div>
                 <div class="card card-body" style="display:none;" id="tutorCard">
-                  <div class="form-group" id="tutorForm">
-                    <label for="validationSchool" class="h6">What Year Are You?</label>
-                    <select name="yearStatus" class="form-control" id="yearStatus">
-                      <option value="">Select a Year</option>
-                      <option value="Freshman">Freshman</option>
-                      <option value="Sophomore">Sophomore</option>
-                      <option value="Junior">Junior</option>
-                      <option value="Senior">Senior</option>
-                    </select>
-                    <span class="error"><small id="yearError" style="color:red"></small></span>
-                  </div>
-                  <div class="form-group">
-                    <label for="validationSubject" class="h6">What Subject?</label>
-                    <select name="subjectStatus" class="form-control" id="subjectStatus">
-                      <option value="">Select a Subject</option>
-                      <option value="Math">Math</option>
-                      <option value="Physics">Physics</option>
-                      <option value="Computer Science">Computer Science</option>
-                      <option value="English">English</option>
-                    </select>
-                    <span class="error"><small id="subjectError" style="color:red"></small></span>
-                  </div>
                   <div class="form-group">
                     <label for="hourlyWage" class="h6">Enter Your Hourly Price</label>
                     <input name="wage" class="form-control" id="wage" placeholder="$0.00">

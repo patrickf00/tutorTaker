@@ -579,25 +579,12 @@ app.get('/feedback', function(req, res){
 // feedback submited
 app.post('/feedback/submitted', function(req, res){
   // id of profile being viewed
-  var userid = req.body.studentID;
+  var userID = req.body.studentID;
   var feedback = req.body.feedback;
   var rating = req.body.rating;
-  console.log("feedback:", feedback, "rating:", rating, "user id:", userid);
-  var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userid + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
-  var avgRate = "UPDATE users SET users = )AVG(rating) FROM feedback) WHERE id = '" + userid + "';";
-  db.query(avgRate, task => {
-    return task.batch([
-      task.any(avgRate)
-    ]);
-  })
-  .then(data => {
-    console.log(data);
-  })
-  .catch(err => {
-    // display error message in case an error
-    console.log('error', err);
-    res.redirect('/profile')
-  })
+  console.log("feedback:", feedback, "rating:", rating, "user id:", userID);
+  var query = "INSERT INTO feedback (userid, raterid, reviewtext, rating)  VALUES ('" + userID + "','" + req.session.uid + "','"+ feedback + "','" + rating + "');";
+  var avgRate = "UPDATE users SET users.rating = (SELECT AVG(feedback.rating) FROM feedback INNER JOIN users on feedback.userid=users.id) WHERE users.id = '" + userID + "';";
   db.query(query, task => {
     return task.batch([
         task.any(query)
@@ -611,6 +598,19 @@ app.post('/feedback/submitted', function(req, res){
       // display error message in case an error
       console.log('error', err);
       res.redirect('/profile')
+  })
+  db.query(avgRate, task => {
+    return task.batch([
+      task.any(avgRate)
+    ]);
+  })
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => {
+    // display error message in case an error
+    console.log('error', err);
+    res.redirect('/profile')
   })
 });
 
