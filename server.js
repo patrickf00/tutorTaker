@@ -592,7 +592,7 @@ app.post('/feedback/submitted', function(req, res){
   })
   //test
   .then(data => {
-    res.redirect('/profile')
+    console.log(data);
   })
   .catch(err => {
       // display error message in case an error
@@ -605,7 +605,7 @@ app.post('/feedback/submitted', function(req, res){
     ]);
   })
   .then(data => {
-    console.log(data);
+    res.redirect('/profile')
   })
   .catch(err => {
     // display error message in case an error
