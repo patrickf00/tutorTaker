@@ -396,7 +396,7 @@ app.post('/regPage/valid', function(req, res){
           res.render('pages/regPage', {
             usernameAlreadyInDatabase: false,
             emailAlreadyInDatabase:false,
-            //redirectToLogin: false,
+            redirectToLogin: false,
             redirectFromLogin: false,
             usernameAndEmailAlreadyInDatabase: false
           });
@@ -407,7 +407,7 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage',{
         usernameAlreadyInDatabase: false,
         emailAlreadyInDatabase:false,
-        //redirectToLogin: false,
+        redirectToLogin: false,
         redirectFromLogin: false,
         usernameAndEmailAlreadyInDatabase: true
   		})
@@ -417,7 +417,7 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage',{
         usernameAlreadyInDatabase: false,
         emailAlreadyInDatabase:true,
-        //redirectToLogin: false,
+        redirectToLogin: false,
         redirectFromLogin: false,
         usernameAndEmailAlreadyInDatabase: false
   		})
@@ -427,7 +427,7 @@ app.post('/regPage/valid', function(req, res){
       res.render('pages/regPage',{
         usernameAlreadyInDatabase: true,
         emailAlreadyInDatabase:false,
-        //redirectToLogin: false,
+        redirectToLogin: false,
         redirectFromLogin: false,
         usernameAndEmailAlreadyInDatabase: false
   		})
@@ -439,7 +439,7 @@ app.post('/regPage/valid', function(req, res){
     res.render('pages/regPage',{
       usernameAlreadyInDatabase: false,
       emailAlreadyInDatabase:false,
-      //redirectToLogin: false,
+      redirectToLogin: false,
       redirectFromLogin: false,
       usernameAndEmailAlreadyInDatabase: false
 		})
