@@ -132,7 +132,7 @@ app.post('/editBio/valid', function(req, res){
       "tutor": isTutor,
       "student": isStudent,
       "location": req.body.school,
-      "year": req.body.yearStatus,
+      "schoolLevel": req.body.yearStatus,
       "subjects": req.body.subjectStatus,
       "bio": req.body.bio
   };
@@ -166,8 +166,6 @@ app.post('/editBio/valid', function(req, res){
       res.render('pages/editBio')
       })
 });
-
-
 //will render base registration page
 app.post('/regPage', function(req, res){
   res.render('pages/regPage', {
@@ -178,6 +176,7 @@ app.post('/regPage', function(req, res){
     usernameAndEmailAlreadyInDatabase: false
   });
 });
+
 
 //will get request for verification process the login page
 app.post('/login/verify', function(req, res){
