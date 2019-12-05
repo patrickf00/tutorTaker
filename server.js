@@ -193,7 +193,7 @@ app.post('/login/verify', function(req, res){
       res.render('pages/regPage', {
         usernameAlreadyInDatabase: false,
         emailAlreadyInDatabase: false,
-        //redirectToLogin: false,
+        redirectToLogin: false,
         redirectFromLogin: true,
         usernameAndEmailAlreadyInDatabase: false
       });
@@ -207,7 +207,7 @@ app.post('/login/verify', function(req, res){
       console.log(data[0]);
       res.render('pages/LoginPage', {
         incorrectLogin: true,
-        redirectFromLogin: true,
+        redirectFromLogin: true
       });
     }else{ // Successful login
       // Set user session data & redirect to profile
