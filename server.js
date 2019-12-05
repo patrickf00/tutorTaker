@@ -171,7 +171,7 @@ app.post('/regPage', function(req, res){
   res.render('pages/regPage', {
     emailAlreadyInDatabase: false,
     usernameAlreadyInDatabase: false,
-    redirectToLogin: false,
+    //redirectToLogin: false,
     redirectFromLogin: false,
     usernameAndEmailAlreadyInDatabase: false
   });
@@ -193,7 +193,7 @@ app.post('/login/verify', function(req, res){
       res.render('pages/regPage', {
         usernameAlreadyInDatabase: false,
         emailAlreadyInDatabase: false,
-        redirectToLogin: false,
+        //redirectToLogin: false,
         redirectFromLogin: true,
         usernameAndEmailAlreadyInDatabase: false
       });
