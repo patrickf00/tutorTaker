@@ -132,6 +132,7 @@ app.post('/editBio/valid', function(req, res){
       "tutor": isTutor,
       "student": isStudent,
       "location": req.body.school,
+      "year": req.body.yearStatus,
       "subjects": req.body.subjectStatus,
       "bio": req.body.bio
   };
