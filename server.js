@@ -206,7 +206,8 @@ app.post('/login/verify', function(req, res){
     //  console.log(String(req.body.verifyPwd) != String(data[0].pwdhash));
       console.log(data[0]);
       res.render('pages/LoginPage', {
-        incorrectLogin: true
+        incorrectLogin: true,
+        redirectFromLogin: true,
       });
     }else{ // Successful login
       // Set user session data & redirect to profile
