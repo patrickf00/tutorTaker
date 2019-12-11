@@ -4,3 +4,6 @@ TutorTaker is a online application that provides an easy way to connect students
 
 
 Students searching for a tutor will be able to filter through tutors based on location and subject. Once they have filtered down, they will then be able to view profiles of tutors and see their preferred pronouns, style of tutoring (in person, video chat, instant message), payment option, price, location, ratings, subjects, picture, and education (major, degree etc.). Once a student has found a tutor they’re interested in they can message them. From there a tutor can view the students profile and see similar information and decide if they will take on the student.
+
+This repository is organized with our main files (server, database creation, & package files) in the main directory, and our pages, partials, JS resources, and dependencies in separate child directories below that.
+Building the code is as simple as running the NodeJS server (using "node server.js" from the same directory as the server). Heroku rebuilds the app on every push automatically.
